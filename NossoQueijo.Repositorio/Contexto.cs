@@ -20,11 +20,6 @@ namespace NossoQueijo.Repositorio
         public DbSet<PedidoProduto> PedidoProdutos { get; set; }
         public DbSet<FormaPagamento> FormasPagamento { get; set; }
 
-        /*internal Usuario Include()
-        {
-            throw new NotImplementedException();
-        }*/
-
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
