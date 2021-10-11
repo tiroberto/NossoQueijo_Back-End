@@ -10,11 +10,11 @@ namespace AnBertoCars.Aplicacao
 {
     public class EstadoAplicacao : IEstadoAplicacao
     {
-        private readonly IEstadoRepositorio _EstadoRepositorio;
+        private readonly IEstadoRepositorio _estadoRepositorio;
 
-        public EstadoAplicacao(IEstadoRepositorio Estadorepositorio)
+        public EstadoAplicacao(IEstadoRepositorio estadoRepositorio)
         {
-            _EstadoRepositorio = Estadorepositorio;
+            _estadoRepositorio = estadoRepositorio;
         }
 
         public NotificationResult Salvar(Estado entidade)
@@ -28,13 +28,13 @@ namespace AnBertoCars.Aplicacao
 
                     if (entidade.idEstado == 0)
                     {
-                        _EstadoRepositorio.Adicionar(entidade);
-                        notificationResult.Add("Avaliacao cadastrada com sucesso.");
+                        _estadoRepositorio.Adicionar(entidade);
+                        notificationResult.Add("Estado cadastrado com sucesso.");
                     }
                     else
                     {
-                        _EstadoRepositorio.Atualizar(entidade);
-                        notificationResult.Add("Avaliacao atualizada com sucesso.");
+                        _estadoRepositorio.Atualizar(entidade);
+                        notificationResult.Add("Estado atualizado com sucesso.");
                     }
 
                 }
@@ -51,12 +51,19 @@ namespace AnBertoCars.Aplicacao
 
         public IEnumerable<Estado> ListarTodos()
         {
-            return _EstadoRepositorio.ListarTodos();
+            return _estadoRepositorio.ListarTodos();
+        }
+
+        public Estado BuscarPorId(int id)
+        {
+            if (id > 0)
+                return _estadoRepositorio.BuscarPorId(id);
+            return null;
         }
 
         public string Excluir(Estado entidade)
         {
-            _EstadoRepositorio.Remover(entidade);
+            _estadoRepositorio.Remover(entidade);
             return "Excluido";
         }
     }

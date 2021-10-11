@@ -10,11 +10,11 @@ namespace AnBertoCars.Aplicacao
 {
     public class PedidoProdutoAplicacao : IPedidoProdutoAplicacao
     {
-        private readonly IPedidoProdutoRepositorio _PedidoProdutoRepositorio;
+        private readonly IPedidoProdutoRepositorio _pedidoProdutoRepositorio;
 
-        public PedidoProdutoAplicacao(IPedidoProdutoRepositorio PedidoProdutorepositorio)
+        public PedidoProdutoAplicacao(IPedidoProdutoRepositorio pedidoProdutoRepositorio)
         {
-            _PedidoProdutoRepositorio = PedidoProdutorepositorio;
+            _pedidoProdutoRepositorio = pedidoProdutoRepositorio;
         }
 
         public NotificationResult Salvar(PedidoProduto entidade)
@@ -28,13 +28,13 @@ namespace AnBertoCars.Aplicacao
 
                     if (entidade.idPedido == 0 && entidade.idProduto == 0)
                     {
-                        _PedidoProdutoRepositorio.Adicionar(entidade);
-                        notificationResult.Add("Avaliacao cadastrada com sucesso.");
+                        _pedidoProdutoRepositorio.Adicionar(entidade);
+                        notificationResult.Add("Pedido produto cadastrado com sucesso.");
                     }
                     else
                     {
-                        _PedidoProdutoRepositorio.Atualizar(entidade);
-                        notificationResult.Add("Avaliacao atualizada com sucesso.");
+                        _pedidoProdutoRepositorio.Atualizar(entidade);
+                        notificationResult.Add("Pedido produto atualizado com sucesso.");
                     }
 
                 }
@@ -51,12 +51,19 @@ namespace AnBertoCars.Aplicacao
 
         public IEnumerable<PedidoProduto> ListarTodos()
         {
-            return _PedidoProdutoRepositorio.ListarTodos();
+            return _pedidoProdutoRepositorio.ListarTodos();
+        }
+
+        public IEnumerable<PedidoProduto> ListarPorIdPedido(int idPedido)
+        {
+            if (idPedido > 0)
+                return _pedidoProdutoRepositorio.ListarPorIdPedido(idPedido);
+            return null;
         }
 
         public string Excluir(PedidoProduto entidade)
         {
-            _PedidoProdutoRepositorio.Remover(entidade);
+            _pedidoProdutoRepositorio.Remover(entidade);
             return "Excluido";
         }
     }

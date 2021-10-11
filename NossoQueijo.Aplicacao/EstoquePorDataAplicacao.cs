@@ -10,11 +10,11 @@ namespace AnBertoCars.Aplicacao
 {
     public class EstoquePorDataAplicacao : IEstoquePorDataAplicacao
     {
-        private readonly IEstoquePorDataRepositorio _EstoquePorDataRepositorio;
+        private readonly IEstoquePorDataRepositorio _estoquePorDataRepositorio;
 
-        public EstoquePorDataAplicacao(IEstoquePorDataRepositorio EstoquePorDatarepositorio)
+        public EstoquePorDataAplicacao(IEstoquePorDataRepositorio estoquePorDataRepositorio)
         {
-            _EstoquePorDataRepositorio = EstoquePorDatarepositorio;
+            _estoquePorDataRepositorio = estoquePorDataRepositorio;
         }
 
         public NotificationResult Salvar(EstoquePorData entidade)
@@ -28,13 +28,13 @@ namespace AnBertoCars.Aplicacao
 
                     if (entidade.idEstoquePorData == 0)
                     {
-                        _EstoquePorDataRepositorio.Adicionar(entidade);
-                        notificationResult.Add("Avaliacao cadastrada com sucesso.");
+                        _estoquePorDataRepositorio.Adicionar(entidade);
+                        notificationResult.Add("Estoque por data cadastrada com sucesso.");
                     }
                     else
                     {
-                        _EstoquePorDataRepositorio.Atualizar(entidade);
-                        notificationResult.Add("Avaliacao atualizada com sucesso.");
+                        _estoquePorDataRepositorio.Atualizar(entidade);
+                        notificationResult.Add("Estoque por data atualizada com sucesso.");
                     }
 
                 }
@@ -51,12 +51,53 @@ namespace AnBertoCars.Aplicacao
 
         public IEnumerable<EstoquePorData> ListarTodos()
         {
-            return _EstoquePorDataRepositorio.ListarTodos();
+            return _estoquePorDataRepositorio.ListarTodos();
+        }
+
+        public EstoquePorData BuscarPorId(int id)
+        {
+            if (id > 0)
+                return _estoquePorDataRepositorio.BuscarPorId(id);
+            return null;
+        }
+
+        public NotificationResult ListarPorPeriodo(DateTime inicio, DateTime fim)
+        {
+            var notificationResult = new NotificationResult();
+
+            try
+            {
+                if (notificationResult.IsValid)
+                {
+
+                    if ((inicio != null) 
+                        || (fim != null) 
+                        || (inicio < fim) 
+                        || (inicio < DateTime.Now))
+                    {
+                        notificationResult.Result = _estoquePorDataRepositorio.ListarPorPeriodo(inicio, fim);
+                        notificationResult.Add("Lista gerada com sucesso.");
+                    }
+
+                }
+                return notificationResult;
+            }
+            catch (Exception ex)
+            {
+                return notificationResult.Add(new NotificationError(ex.Message));
+            }
+        }
+
+        public IEnumerable<EstoquePorData> ListaPorIdProduto(int idProduto)
+        {
+            if (idProduto > 0)
+                return _estoquePorDataRepositorio.ListarPorIdProduto(idProduto);
+            return null;
         }
 
         public string Excluir(EstoquePorData entidade)
         {
-            _EstoquePorDataRepositorio.Remover(entidade);
+            _estoquePorDataRepositorio.Remover(entidade);
             return "Excluido";
         }
     }

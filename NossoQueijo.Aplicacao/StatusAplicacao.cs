@@ -10,11 +10,11 @@ namespace AnBertoCars.Aplicacao
 {
     public class StatusAplicacao : IStatusAplicacao
     {
-        private readonly IStatusRepositorio _StatusRepositorio;
+        private readonly IStatusRepositorio _statusRepositorio;
 
-        public StatusAplicacao(IStatusRepositorio Statusrepositorio)
+        public StatusAplicacao(IStatusRepositorio statusRepositorio)
         {
-            _StatusRepositorio = Statusrepositorio;
+            _statusRepositorio = statusRepositorio;
         }
 
         public NotificationResult Salvar(Status entidade)
@@ -28,13 +28,13 @@ namespace AnBertoCars.Aplicacao
 
                     if (entidade.idStatus == 0)
                     {
-                        _StatusRepositorio.Adicionar(entidade);
-                        notificationResult.Add("Avaliacao cadastrada com sucesso.");
+                        _statusRepositorio.Adicionar(entidade);
+                        notificationResult.Add("Status cadastrado com sucesso.");
                     }
                     else
                     {
-                        _StatusRepositorio.Atualizar(entidade);
-                        notificationResult.Add("Avaliacao atualizada com sucesso.");
+                        _statusRepositorio.Atualizar(entidade);
+                        notificationResult.Add("Status atualizado com sucesso.");
                     }
 
                 }
@@ -51,13 +51,32 @@ namespace AnBertoCars.Aplicacao
 
         public IEnumerable<Status> ListarTodos()
         {
-            return _StatusRepositorio.ListarTodos();
+            return _statusRepositorio.ListarTodos();
         }
 
-        public string Excluir(Status entidade)
+        public Status BuscarPorId(int id)
         {
-            _StatusRepositorio.Remover(entidade);
-            return "Excluido";
+            if (id > 0)
+                return _statusRepositorio.BuscarPorId(id);
+            return null;
+        }
+
+        public NotificationResult RemoverPersonalizado(int id)
+        {
+            var notificationResult = new NotificationResult();
+            try
+            {
+                if (notificationResult.IsValid)
+                {
+                    _statusRepositorio.RemoverPersonalizado(id);
+                    notificationResult.Add("Removido com sucesso");
+                }
+                return notificationResult;
+            }
+            catch (Exception ex)
+            {
+                return notificationResult.Add(new NotificationError(ex.Message));
+            }
         }
     }
 }

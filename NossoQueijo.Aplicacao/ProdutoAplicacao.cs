@@ -10,11 +10,11 @@ namespace AnBertoCars.Aplicacao
 {
     public class ProdutoAplicacao : IProdutoAplicacao
     {
-        private readonly IProdutoRepositorio _ProdutoRepositorio;
+        private readonly IProdutoRepositorio _produtoRepositorio;
 
-        public ProdutoAplicacao(IProdutoRepositorio Produtorepositorio)
+        public ProdutoAplicacao(IProdutoRepositorio produtoRepositorio)
         {
-            _ProdutoRepositorio = Produtorepositorio;
+            _produtoRepositorio = produtoRepositorio;
         }
 
         public NotificationResult Salvar(Produto entidade)
@@ -28,13 +28,13 @@ namespace AnBertoCars.Aplicacao
 
                     if (entidade.idProduto == 0)
                     {
-                        _ProdutoRepositorio.Adicionar(entidade);
-                        notificationResult.Add("Avaliacao cadastrada com sucesso.");
+                        _produtoRepositorio.Adicionar(entidade);
+                        notificationResult.Add("Produto cadastrado com sucesso.");
                     }
                     else
                     {
-                        _ProdutoRepositorio.Atualizar(entidade);
-                        notificationResult.Add("Avaliacao atualizada com sucesso.");
+                        _produtoRepositorio.Atualizar(entidade);
+                        notificationResult.Add("Produto atualizado com sucesso.");
                     }
 
                 }
@@ -51,13 +51,32 @@ namespace AnBertoCars.Aplicacao
 
         public IEnumerable<Produto> ListarTodos()
         {
-            return _ProdutoRepositorio.ListarTodos();
+            return _produtoRepositorio.ListarTodos();
         }
 
-        public string Excluir(Produto entidade)
+        public Produto BuscarPorId(int id)
         {
-            _ProdutoRepositorio.Remover(entidade);
-            return "Excluido";
+            if (id > 0)
+                return _produtoRepositorio.BuscarPorId(id);
+            return null;
+        }
+
+        public NotificationResult RemoverPersonalizado(int id)
+        {
+            var notificationResult = new NotificationResult();
+            try
+            {
+                if (notificationResult.IsValid)
+                {
+                    _produtoRepositorio.RemoverPersonalizado(id);
+                    notificationResult.Add("Removido com sucesso");
+                }
+                return notificationResult;
+            }
+            catch (Exception ex)
+            {
+                return notificationResult.Add(new NotificationError(ex.Message));
+            }
         }
     }
 }

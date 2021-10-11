@@ -10,11 +10,11 @@ namespace AnBertoCars.Aplicacao
 {
     public class EnderecoAplicacao : IEnderecoAplicacao
     {
-        private readonly IEnderecoRepositorio _EnderecoRepositorio;
+        private readonly IEnderecoRepositorio _enderecoRepositorio;
 
-        public EnderecoAplicacao(IEnderecoRepositorio Enderecorepositorio)
+        public EnderecoAplicacao(IEnderecoRepositorio enderecoRepositorio)
         {
-            _EnderecoRepositorio = Enderecorepositorio;
+            _enderecoRepositorio = enderecoRepositorio;
         }
 
         public NotificationResult Salvar(Endereco entidade)
@@ -28,13 +28,13 @@ namespace AnBertoCars.Aplicacao
 
                     if (entidade.idEndereco == 0)
                     {
-                        _EnderecoRepositorio.Adicionar(entidade);
-                        notificationResult.Add("Avaliacao cadastrada com sucesso.");
+                        _enderecoRepositorio.Adicionar(entidade);
+                        notificationResult.Add("Endereço cadastrado com sucesso.");
                     }
                     else
                     {
-                        _EnderecoRepositorio.Atualizar(entidade);
-                        notificationResult.Add("Avaliacao atualizada com sucesso.");
+                        _enderecoRepositorio.Atualizar(entidade);
+                        notificationResult.Add("Endereço atualizado com sucesso.");
                     }
 
                 }
@@ -51,13 +51,29 @@ namespace AnBertoCars.Aplicacao
 
         public IEnumerable<Endereco> ListarTodos()
         {
-            return _EnderecoRepositorio.ListarTodos();
+            return _enderecoRepositorio.ListarTodos();
         }
 
-        public string Excluir(Endereco entidade)
+        public Endereco BuscarPorId(int id)
         {
-            _EnderecoRepositorio.Remover(entidade);
-            return "Excluido";
+            if (id > 0)
+                return _enderecoRepositorio.BuscarPorId(id);
+            return null;
+        }
+
+        public IEnumerable<Endereco> ListarPorIdCidade(int idCidade)
+        {
+            if (idCidade > 0)
+                return _enderecoRepositorio.ListarPorIdCidade(idCidade);           
+            return null;
+        }
+
+        public bool Remover(Endereco entidade)
+        {
+            if (_enderecoRepositorio.Remover(entidade))
+                return true;
+            else
+                return false;
         }
     }
 }

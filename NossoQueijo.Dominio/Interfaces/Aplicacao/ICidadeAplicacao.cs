@@ -9,9 +9,9 @@ namespace NossoQueijo.Dominio.Interfaces.Aplicacao
     public interface ICidadeAplicacao
     {
         public NotificationResult Salvar(Cidade entidade);
-
         public IEnumerable<Cidade> ListarTodos();
-
-        public string Excluir(Cidade entidade);
+        public Cidade BuscarPorId(int id);
+        public IEnumerable<Cidade> ListarPorIdCidade(int idCidade);
+        public bool Excluir(Cidade entidade);
     }
 }

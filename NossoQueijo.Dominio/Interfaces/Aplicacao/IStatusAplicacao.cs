@@ -9,9 +9,8 @@ namespace NossoQueijo.Dominio.Interfaces.Aplicacao
     public interface IStatusAplicacao
     {
         public NotificationResult Salvar(Status entidade);
-
         public IEnumerable<Status> ListarTodos();
-
-        public string Excluir(Status entidade);
+        public Status BuscarPorId(int id);
+        public NotificationResult RemoverPersonalizado(int id);
     }
 }
