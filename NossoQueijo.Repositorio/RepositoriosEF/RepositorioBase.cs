@@ -18,28 +18,9 @@ namespace NossoQueijo.Repositorio.RepositoriosEF
             Entidade = Contexto.Set<T>();
         }
 
-        public T ListarUm(params object[] keys)
-        {
-            return Entidade.Find(keys);
-        }
-
-        public IEnumerable<T> ListarTodos()
-        {
-            return Contexto
-                .Set<T>()
-                .ToList();
-        }
-
         public void Adicionar(T entidade, bool saveChanges = true)
         {
             Entidade.Add(entidade);
-            if (saveChanges)
-                SaveChanges();
-        }
-
-        public void Remover(T entidade, bool saveChanges = true)
-        {
-            Entidade.Remove(entidade);
             if (saveChanges)
                 SaveChanges();
         }
@@ -50,6 +31,19 @@ namespace NossoQueijo.Repositorio.RepositoriosEF
             if (saveChanges)
                 SaveChanges();
         }
+
+        public bool Remover(T entidade, bool saveChanges = true)
+        {
+            Entidade.Remove(entidade);
+            if (saveChanges)
+            {
+                SaveChanges();
+                return true;
+            }
+            else
+                return false;
+        }
+
         public void SaveChanges()
         {
             Contexto.SaveChanges();

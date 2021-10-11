@@ -20,7 +20,6 @@ namespace AnBertoCars.Aplicacao
         public NotificationResult Salvar(Pedido entidade)
         {
             var notificationResult = new NotificationResult();
-
             try
             {
                 if (notificationResult.IsValid)
