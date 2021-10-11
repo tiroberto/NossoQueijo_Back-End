@@ -7,5 +7,7 @@ namespace NossoQueijo.Dominio.Interfaces.Repositorio
 {
     public interface IEstadoRepositorio : IRepositorioBase<Estado>
     {
+        public IEnumerable<Estado> ListarTodos();
+        public Estado BuscarPorId(int id);
     }
 }

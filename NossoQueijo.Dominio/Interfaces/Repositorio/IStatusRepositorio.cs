@@ -7,5 +7,8 @@ namespace NossoQueijo.Dominio.Interfaces.Repositorio
 {
     public interface IStatusRepositorio : IRepositorioBase<Status>
     {
+        public IEnumerable<Status> ListarTodos();
+        public Status BuscarPorId(int id);
+        public bool RemoverPersonalizado(int id);
     }
 }
