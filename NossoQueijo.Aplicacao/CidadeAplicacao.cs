@@ -10,11 +10,11 @@ namespace AnBertoCars.Aplicacao
 {
     public class CidadeAplicacao : ICidadeAplicacao
     {
-        private readonly ICidadeRepositorio _CidadeRepositorio;
+        private readonly ICidadeRepositorio _cidadeRepositorio;
 
-        public CidadeAplicacao(ICidadeRepositorio Cidaderepositorio)
+        public CidadeAplicacao(ICidadeRepositorio cidadeRepositorio)
         {
-            _CidadeRepositorio = Cidaderepositorio;
+            _cidadeRepositorio = cidadeRepositorio;
         }
 
         public NotificationResult Salvar(Cidade entidade)
@@ -28,13 +28,13 @@ namespace AnBertoCars.Aplicacao
 
                     if (entidade.idCidade == 0)
                     {
-                        _CidadeRepositorio.Adicionar(entidade);
-                        notificationResult.Add("Avaliacao cadastrada com sucesso.");
+                        _cidadeRepositorio.Adicionar(entidade);
+                        notificationResult.Add("Cidade cadastrada com sucesso.");
                     }
                     else
                     {
-                        _CidadeRepositorio.Atualizar(entidade);
-                        notificationResult.Add("Avaliacao atualizada com sucesso.");
+                        _cidadeRepositorio.Atualizar(entidade);
+                        notificationResult.Add("Cidade atualizada com sucesso.");
                     }
 
                 }
@@ -51,13 +51,25 @@ namespace AnBertoCars.Aplicacao
 
         public IEnumerable<Cidade> ListarTodos()
         {
-            return _CidadeRepositorio.ListarTodos();
+            return _cidadeRepositorio.ListarTodos();
         }
 
-        public string Excluir(Cidade entidade)
+        public Cidade BuscarPorId(int id)
         {
-            _CidadeRepositorio.Remover(entidade);
-            return "Excluido";
+            return _cidadeRepositorio.BuscarPorId(id);
+        }
+
+        public IEnumerable<Cidade> ListarPorIdCidade(int idCidade)
+        {
+            return _cidadeRepositorio.ListarPorIdEstado(idCidade);
+        }
+
+        public bool Excluir(Cidade entidade)
+        {
+            if (_cidadeRepositorio.Remover(entidade))
+                return true;
+            else
+                return false;
         }
     }
 }

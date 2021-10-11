@@ -9,9 +9,11 @@ namespace NossoQueijo.Dominio.Interfaces.Aplicacao
     public interface IUsuarioAplicacao
     {
         public NotificationResult Salvar(Usuario entidade);
-
         public IEnumerable<Usuario> ListarTodos();
-
-        public string Excluir(Usuario entidade);
+        public Usuario BuscarPorId(int id);
+        public IEnumerable<Usuario> ListarPorIdTipoUsuario(int idTipoUsuario);
+        public NotificationResult VerificarLogin(string email, string senha);
+        public NotificationResult RemoverPorIdTipoUsuario(int idTipoUsuario);
+        public NotificationResult RemoverPersonalizado(int id);
     }
 }

@@ -10,11 +10,11 @@ namespace AnBertoCars.Aplicacao
 {
     public class PedidoAplicacao : IPedidoAplicacao
     {
-        private readonly IPedidoRepositorio _PedidoRepositorio;
+        private readonly IPedidoRepositorio _pedidoRepositorio;
 
-        public PedidoAplicacao(IPedidoRepositorio Pedidorepositorio)
+        public PedidoAplicacao(IPedidoRepositorio pedidoRepositorio)
         {
-            _PedidoRepositorio = Pedidorepositorio;
+            _pedidoRepositorio = pedidoRepositorio;
         }
 
         public NotificationResult Salvar(Pedido entidade)
@@ -27,13 +27,13 @@ namespace AnBertoCars.Aplicacao
 
                     if (entidade.idPedido == 0)
                     {
-                        _PedidoRepositorio.Adicionar(entidade);
-                        notificationResult.Add("Avaliacao cadastrada com sucesso.");
+                        _pedidoRepositorio.Adicionar(entidade);
+                        notificationResult.Add("Pedido cadastrado com sucesso.");
                     }
                     else
                     {
-                        _PedidoRepositorio.Atualizar(entidade);
-                        notificationResult.Add("Avaliacao atualizada com sucesso.");
+                        _pedidoRepositorio.Atualizar(entidade);
+                        notificationResult.Add("Pedido atualizado com sucesso.");
                     }
 
                 }
@@ -50,13 +50,53 @@ namespace AnBertoCars.Aplicacao
 
         public IEnumerable<Pedido> ListarTodos()
         {
-            return _PedidoRepositorio.ListarTodos();
+            return _pedidoRepositorio.ListarTodos();
         }
 
-        public string Excluir(Pedido entidade)
+        public IEnumerable<Pedido> ListarPorIdUsuario(int idUsuario)
         {
-            _PedidoRepositorio.Remover(entidade);
-            return "Excluido";
+            if (idUsuario > 0)
+                return _pedidoRepositorio.ListarPorIdUsuario(idUsuario);
+            return null;
+        }
+
+        public IEnumerable<Pedido> ListarPorIdStatus(int idStatus)
+        {
+            if (idStatus > 0)
+                return _pedidoRepositorio.ListarPorIdUsuario(idStatus);
+            return null;
+        }
+
+        public IEnumerable<Pedido> ListarPorIdFormaPagamento(int idFormaPagamento)
+        {
+            if (idFormaPagamento > 0)
+                return _pedidoRepositorio.ListarPorIdUsuario(idFormaPagamento);
+            return null;
+        }
+
+        public Pedido BuscarPorId(int id)
+        {
+            if (id > 0)
+                return _pedidoRepositorio.BuscarPorId(id);
+            return null;
+        }
+
+        public NotificationResult RemoverPersonalizado(int id)
+        {
+            var notificationResult = new NotificationResult();
+            try
+            {
+                if (notificationResult.IsValid)
+                {
+                    _pedidoRepositorio.RemoverPersonalizado(id);
+                    notificationResult.Add("Removido com sucesso");
+                }
+                return notificationResult;
+            }
+            catch (Exception ex)
+            {
+                return notificationResult.Add(new NotificationError(ex.Message));
+            }
         }
     }
 }

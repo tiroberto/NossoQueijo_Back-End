@@ -10,11 +10,11 @@ namespace AnBertoCars.Aplicacao
 {
     public class TipoUsuarioAplicacao : ITipoUsuarioAplicacao
     {
-        private readonly ITipoUsuarioRepositorio _TipoUsuarioRepositorio;
+        private readonly ITipoUsuarioRepositorio _tipoUsuarioRepositorio;
 
-        public TipoUsuarioAplicacao(ITipoUsuarioRepositorio TipoUsuariorepositorio)
+        public TipoUsuarioAplicacao(ITipoUsuarioRepositorio tipoUsuarioRepositorio)
         {
-            _TipoUsuarioRepositorio = TipoUsuariorepositorio;
+            _tipoUsuarioRepositorio = tipoUsuarioRepositorio;
         }
 
         public NotificationResult Salvar(TipoUsuario entidade)
@@ -28,13 +28,13 @@ namespace AnBertoCars.Aplicacao
 
                     if (entidade.idTipoUsuario == 0)
                     {
-                        _TipoUsuarioRepositorio.Adicionar(entidade);
-                        notificationResult.Add("Avaliacao cadastrada com sucesso.");
+                        _tipoUsuarioRepositorio.Adicionar(entidade);
+                        notificationResult.Add("Tipo de usuário cadastrado com sucesso.");
                     }
                     else
                     {
-                        _TipoUsuarioRepositorio.Atualizar(entidade);
-                        notificationResult.Add("Avaliacao atualizada com sucesso.");
+                        _tipoUsuarioRepositorio.Atualizar(entidade);
+                        notificationResult.Add("Tipo de usuário atualizado com sucesso.");
                     }
 
                 }
@@ -51,13 +51,32 @@ namespace AnBertoCars.Aplicacao
 
         public IEnumerable<TipoUsuario> ListarTodos()
         {
-            return _TipoUsuarioRepositorio.ListarTodos();
+            return _tipoUsuarioRepositorio.ListarTodos();
         }
 
-        public string Excluir(TipoUsuario entidade)
+        public TipoUsuario BuscarPorId(int id)
         {
-            _TipoUsuarioRepositorio.Remover(entidade);
-            return "Excluido";
+            if (id > 0)
+                return _tipoUsuarioRepositorio.BuscarPorId(id);
+            return null;
+        }
+
+        public NotificationResult RemoverPersonalizado(int id)
+        {
+            var notificationResult = new NotificationResult();
+            try
+            {
+                if (notificationResult.IsValid)
+                {
+                    _tipoUsuarioRepositorio.RemoverPersonalizado(id);
+                    notificationResult.Add("Removido com sucesso");
+                }
+                return notificationResult;
+            }
+            catch (Exception ex)
+            {
+                return notificationResult.Add(new NotificationError(ex.Message));
+            }
         }
     }
 }

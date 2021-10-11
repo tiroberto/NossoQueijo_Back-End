@@ -9,9 +9,8 @@ namespace NossoQueijo.Dominio.Interfaces.Aplicacao
     public interface IProdutoAplicacao
     {
         public NotificationResult Salvar(Produto entidade);
-
         public IEnumerable<Produto> ListarTodos();
-
-        public string Excluir(Produto entidade);
+        public Produto BuscarPorId(int id);
+        public NotificationResult RemoverPersonalizado(int id);
     }
 }

@@ -10,11 +10,11 @@ namespace AnBertoCars.Aplicacao
 {
     public class FichaProducaoAplicacao : IFichaProducaoAplicacao
     {
-        private readonly IFichaProducaoRepositorio _FichaProducaoRepositorio;
+        private readonly IFichaProducaoRepositorio _fichaProducaoRepositorio;
 
-        public FichaProducaoAplicacao(IFichaProducaoRepositorio FichaProducaorepositorio)
+        public FichaProducaoAplicacao(IFichaProducaoRepositorio fichaProducaoRepositorio)
         {
-            _FichaProducaoRepositorio = FichaProducaorepositorio;
+            _fichaProducaoRepositorio = fichaProducaoRepositorio;
         }
 
         public NotificationResult Salvar(FichaProducao entidade)
@@ -28,13 +28,13 @@ namespace AnBertoCars.Aplicacao
 
                     if (entidade.idFichaProducao == 0)
                     {
-                        _FichaProducaoRepositorio.Adicionar(entidade);
-                        notificationResult.Add("Avaliacao cadastrada com sucesso.");
+                        _fichaProducaoRepositorio.Adicionar(entidade);
+                        notificationResult.Add("Ficha de produção cadastrada com sucesso.");
                     }
                     else
                     {
-                        _FichaProducaoRepositorio.Atualizar(entidade);
-                        notificationResult.Add("Avaliacao atualizada com sucesso.");
+                        _fichaProducaoRepositorio.Atualizar(entidade);
+                        notificationResult.Add("Ficha de produção atualizada com sucesso.");
                     }
 
                 }
@@ -51,12 +51,53 @@ namespace AnBertoCars.Aplicacao
 
         public IEnumerable<FichaProducao> ListarTodos()
         {
-            return _FichaProducaoRepositorio.ListarTodos();
+            return _fichaProducaoRepositorio.ListarTodos();
+        }
+
+        public IEnumerable<FichaProducao> ListarPorIdUsuario(int idUsuario)
+        {
+            if (idUsuario > 0)
+                return _fichaProducaoRepositorio.ListarPorIdUsuario(idUsuario);
+            return null;
+        }
+
+        public NotificationResult ListarPorPeriodo(DateTime inicio, DateTime fim)
+        {
+            var notificationResult = new NotificationResult();
+
+            try
+            {
+                if (notificationResult.IsValid)
+                {
+
+                    if ((inicio != null)
+                        || (fim != null)
+                        || (inicio < fim)
+                        || (inicio < DateTime.Now))
+                    {
+                        notificationResult.Result = _fichaProducaoRepositorio.ListarPorPeriodo(inicio, fim);
+                        notificationResult.Add("Lista gerada com sucesso.");
+                    }
+
+                }
+                return notificationResult;
+            }
+            catch (Exception ex)
+            {
+                return notificationResult.Add(new NotificationError(ex.Message));
+            }
+        }
+
+        public FichaProducao BuscarPorId(int id)
+        {
+            if (id > 0)
+                return _fichaProducaoRepositorio.BuscarPorId(id);
+            return null;
         }
 
         public string Excluir(FichaProducao entidade)
         {
-            _FichaProducaoRepositorio.Remover(entidade);
+            _fichaProducaoRepositorio.Remover(entidade);
             return "Excluido";
         }
     }

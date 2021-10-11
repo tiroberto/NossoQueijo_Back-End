@@ -25,7 +25,6 @@ namespace NossoQueijo.Repositorio.RepositoriosEF
                 .ThenInclude(y => y.Cidade)
                 .ThenInclude(y => y.Estado)
                 .ToList();
-
         }
 
         public Usuario BuscarPorId(int id)

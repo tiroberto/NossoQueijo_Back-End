@@ -9,9 +9,8 @@ namespace NossoQueijo.Dominio.Interfaces.Aplicacao
     public interface ITipoUsuarioAplicacao
     {
         public NotificationResult Salvar(TipoUsuario entidade);
-
         public IEnumerable<TipoUsuario> ListarTodos();
-
-        public string Excluir(TipoUsuario entidade);
+        public TipoUsuario BuscarPorId(int id);
+        public NotificationResult RemoverPersonalizado(int id);
     }
 }

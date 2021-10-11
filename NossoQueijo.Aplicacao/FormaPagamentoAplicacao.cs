@@ -10,11 +10,11 @@ namespace AnBertoCars.Aplicacao
 {
     public class FormaPagamentoAplicacao : IFormaPagamentoAplicacao
     {
-        private readonly IFormaPagamentoRepositorio _FormaPagamentoRepositorio;
+        private readonly IFormaPagamentoRepositorio _formaPagamentoRepositorio;
 
-        public FormaPagamentoAplicacao(IFormaPagamentoRepositorio FormaPagamentorepositorio)
+        public FormaPagamentoAplicacao(IFormaPagamentoRepositorio formaPagamentoRepositorio)
         {
-            _FormaPagamentoRepositorio = FormaPagamentorepositorio;
+            _formaPagamentoRepositorio = formaPagamentoRepositorio;
         }
 
         public NotificationResult Salvar(FormaPagamento entidade)
@@ -28,13 +28,13 @@ namespace AnBertoCars.Aplicacao
 
                     if (entidade.idFormaPagamento == 0)
                     {
-                        _FormaPagamentoRepositorio.Adicionar(entidade);
-                        notificationResult.Add("Avaliacao cadastrada com sucesso.");
+                        _formaPagamentoRepositorio.Adicionar(entidade);
+                        notificationResult.Add("Forma de pagamento cadastrada com sucesso.");
                     }
                     else
                     {
-                        _FormaPagamentoRepositorio.Atualizar(entidade);
-                        notificationResult.Add("Avaliacao atualizada com sucesso.");
+                        _formaPagamentoRepositorio.Atualizar(entidade);
+                        notificationResult.Add("Forma de pagamento atualizada com sucesso.");
                     }
 
                 }
@@ -51,13 +51,32 @@ namespace AnBertoCars.Aplicacao
 
         public IEnumerable<FormaPagamento> ListarTodos()
         {
-            return _FormaPagamentoRepositorio.ListarTodos();
+            return _formaPagamentoRepositorio.ListarTodos();
         }
 
-        public string Excluir(FormaPagamento entidade)
+        public FormaPagamento BuscarPorId(int id)
         {
-            _FormaPagamentoRepositorio.Remover(entidade);
-            return "Excluido";
+            if (id > 0)
+                return _formaPagamentoRepositorio.BuscarPorId(id);
+            return null;
+        }
+
+        public NotificationResult RemoverPersonalizado(int id)
+        {
+            var notificationResult = new NotificationResult();
+            try
+            {
+                if (notificationResult.IsValid)
+                {
+                    _formaPagamentoRepositorio.RemoverPersonalizado(id);
+                    notificationResult.Add("Removido com sucesso");
+                }
+                return notificationResult;
+            }
+            catch (Exception ex)
+            {
+                return notificationResult.Add(new NotificationError(ex.Message));
+            }
         }
     }
 }

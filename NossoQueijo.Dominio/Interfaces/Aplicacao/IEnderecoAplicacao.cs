@@ -9,9 +9,9 @@ namespace NossoQueijo.Dominio.Interfaces.Aplicacao
     public interface IEnderecoAplicacao
     {
         public NotificationResult Salvar(Endereco entidade);
-
         public IEnumerable<Endereco> ListarTodos();
-
-        public string Excluir(Endereco entidade);
+        public Endereco BuscarPorId(int id);
+        public IEnumerable<Endereco> ListarPorIdCidade(int idCidade);
+        public bool Remover(Endereco entidade);
     }
 }
