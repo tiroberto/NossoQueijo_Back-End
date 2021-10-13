@@ -117,7 +117,7 @@ namespace NossoQueijo.WebAPI
             }
 
             app.UseHttpsRedirection();
-
+             
             // Ativando middlewares para uso do Swagger
             app.UseSwagger();
             app.UseSwaggerUI(c => {
