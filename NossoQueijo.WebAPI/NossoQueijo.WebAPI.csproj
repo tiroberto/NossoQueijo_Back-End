@@ -4,5 +4,19 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NossoQueijo.Aplicacao\NossoQueijo.Aplicacao.csproj" />
+    <ProjectReference Include="..\NossoQueijo.Comum\NossoQueijo.Comum.csproj" />
+    <ProjectReference Include="..\NossoQueijo.Dominio\NossoQueijo.Dominio.csproj" />
+  </ItemGroup>
+
 
 </Project>
