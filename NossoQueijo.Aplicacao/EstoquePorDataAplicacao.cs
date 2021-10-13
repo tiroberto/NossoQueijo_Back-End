@@ -6,7 +6,7 @@ using NossoQueijo.Dominio.Interfaces.Repositorio;
 using NossoQueijo.Comum.NotificationPattern;
 using NossoQueijo.Dominio.Interfaces.Aplicacao;
 
-namespace AnBertoCars.Aplicacao
+namespace NossoQueijo.Aplicacao
 {
     public class EstoquePorDataAplicacao : IEstoquePorDataAplicacao
     {

@@ -8,7 +8,7 @@ using NossoQueijo.Dominio.Interfaces.Aplicacao;
 using NossoQueijo.Comum.Util;
 using System.Text.RegularExpressions;
 
-namespace AnBertoCars.Aplicacao
+namespace NossoQueijo.Aplicacao
 {
     public class UsuarioAplicacao : IUsuarioAplicacao
     {
