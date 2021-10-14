@@ -28,12 +28,12 @@ namespace NossoQueijo.Aplicacao
 
                     if (entidade.idCidade == 0)
                     {
-                        _cidadeRepositorio.Adicionar(entidade);
+                        _cidadeRepositorio.AdicionarPersonalizado(entidade);
                         notificationResult.Add("Cidade cadastrada com sucesso.");
                     }
                     else
                     {
-                        _cidadeRepositorio.Atualizar(entidade);
+                        _cidadeRepositorio.AtualizarPersonalizado(entidade);
                         notificationResult.Add("Cidade atualizada com sucesso.");
                     }
 
@@ -59,17 +59,29 @@ namespace NossoQueijo.Aplicacao
             return _cidadeRepositorio.BuscarPorId(id);
         }
 
-        public IEnumerable<Cidade> ListarPorIdCidade(int idCidade)
+        public IEnumerable<Cidade> ListarPorIdEstado(int idEstado)
         {
-            return _cidadeRepositorio.ListarPorIdEstado(idCidade);
+            return _cidadeRepositorio.ListarPorIdEstado(idEstado);
         }
 
-        public bool Excluir(Cidade entidade)
+        public NotificationResult Remover(int id)
         {
-            if (_cidadeRepositorio.Remover(entidade))
-                return true;
-            else
-                return false;
+            var notificationResult = new NotificationResult();
+            Cidade cidade = new Cidade();
+            cidade.idCidade = id;
+            try
+            {
+                if (notificationResult.IsValid)
+                {
+                    _cidadeRepositorio.Remover(cidade);
+                    notificationResult.Add("Removido com sucesso");
+                }
+                return notificationResult;
+            }
+            catch (Exception ex)
+            {
+                return notificationResult.Add(new NotificationError(ex.Message));
+            }
         }
     }
 }

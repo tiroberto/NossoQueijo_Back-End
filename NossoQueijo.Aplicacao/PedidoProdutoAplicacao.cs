@@ -61,10 +61,25 @@ namespace NossoQueijo.Aplicacao
             return null;
         }
 
-        public string Excluir(PedidoProduto entidade)
+        public NotificationResult Remover(int idPedido, int idProduto)
         {
-            _pedidoProdutoRepositorio.Remover(entidade);
-            return "Excluido";
+            var notificationResult = new NotificationResult();
+            PedidoProduto pedidoProduto = new PedidoProduto();
+            pedidoProduto.idPedido = idPedido;
+            pedidoProduto.idProduto = idProduto;
+            try
+            {
+                if (notificationResult.IsValid)
+                {
+                    _pedidoProdutoRepositorio.Remover(pedidoProduto);
+                    notificationResult.Add("Removido com sucesso");
+                }
+                return notificationResult;
+            }
+            catch (Exception ex)
+            {
+                return notificationResult.Add(new NotificationError(ex.Message));
+            }
         }
     }
 }

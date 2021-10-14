@@ -11,7 +11,7 @@ namespace NossoQueijo.Repositorio.Configuracoes
     {
         public void Configure(EntityTypeBuilder<FichaProducao> builder)
         {
-            builder.ToTable("fichaproducao", "nossoqueijo");
+            builder.ToTable("FichaProducao", "dbo");
             builder.HasKey("idFichaProducao");
             builder.Property(i => i.Data)
                 .HasColumnName("Data");

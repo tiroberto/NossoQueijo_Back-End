@@ -7,6 +7,8 @@ namespace NossoQueijo.Dominio.Interfaces.Repositorio
 {
     public interface ICidadeRepositorio : IRepositorioBase<Cidade>
     {
+        public void AdicionarPersonalizado(Cidade cidade);
+        public void AtualizarPersonalizado(Cidade cidade);
         public IEnumerable<Cidade> ListarTodos();
         public Cidade BuscarPorId(int id);
         public IEnumerable<Cidade> ListarPorIdEstado(int idEstado);

@@ -11,7 +11,7 @@ namespace NossoQueijo.Dominio.Interfaces.Aplicacao
         public NotificationResult Salvar(Cidade entidade);
         public IEnumerable<Cidade> ListarTodos();
         public Cidade BuscarPorId(int id);
-        public IEnumerable<Cidade> ListarPorIdCidade(int idCidade);
-        public bool Excluir(Cidade entidade);
+        public IEnumerable<Cidade> ListarPorIdEstado(int idEstado);
+        public NotificationResult Remover(int id);
     }
 }

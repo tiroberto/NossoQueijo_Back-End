@@ -71,9 +71,9 @@ namespace NossoQueijo.Aplicacao
                 {
 
                     if ((inicio != null) 
-                        || (fim != null) 
-                        || (inicio < fim) 
-                        || (inicio < DateTime.Now))
+                        && (fim != null) 
+                        && (inicio < fim) 
+                        && (inicio < DateTime.Now))
                     {
                         notificationResult.Result = _estoquePorDataRepositorio.ListarPorPeriodo(inicio, fim);
                         notificationResult.Add("Lista gerada com sucesso.");
@@ -95,10 +95,24 @@ namespace NossoQueijo.Aplicacao
             return null;
         }
 
-        public string Excluir(EstoquePorData entidade)
+        public NotificationResult Remover(int id)
         {
-            _estoquePorDataRepositorio.Remover(entidade);
-            return "Excluido";
+            var notificationResult = new NotificationResult();
+            EstoquePorData estoquePorData = new EstoquePorData();
+            estoquePorData.idEstoquePorData = id;
+            try
+            {
+                if (notificationResult.IsValid)
+                {
+                    _estoquePorDataRepositorio.Remover(estoquePorData);
+                    notificationResult.Add("Removido com sucesso");
+                }
+                return notificationResult;
+            }
+            catch (Exception ex)
+            {
+                return notificationResult.Add(new NotificationError(ex.Message));
+            }
         }
     }
 }

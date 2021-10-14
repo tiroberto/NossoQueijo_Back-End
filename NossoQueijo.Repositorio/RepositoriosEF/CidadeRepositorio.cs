@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using NossoQueijo.Comum.NotificationPattern;
 using NossoQueijo.Dominio.Entidades;
 using NossoQueijo.Dominio.Interfaces.Repositorio;
 using System;
@@ -16,6 +17,26 @@ namespace NossoQueijo.Repositorio.RepositoriosEF
         public CidadeRepositorio()
         {
             _contexto = new Contexto();
+        }
+
+        public void AdicionarPersonalizado(Cidade cidade)
+        {
+            cidade.Estado = _contexto.Estados
+                .ToList()
+                .Where(x => x.idEstado == cidade.Estado.idEstado)
+                .FirstOrDefault();
+            _contexto.Cidades.Add(cidade);
+            _contexto.SaveChanges();
+        }
+
+        public void AtualizarPersonalizado(Cidade cidade)
+        {
+            cidade.Estado = _contexto.Estados
+                .ToList()
+                .Where(x => x.idEstado == cidade.Estado.idEstado)
+                .FirstOrDefault();
+            _contexto.Cidades.Update(cidade);
+            _contexto.SaveChanges();
         }
 
         public IEnumerable<Cidade> ListarTodos()

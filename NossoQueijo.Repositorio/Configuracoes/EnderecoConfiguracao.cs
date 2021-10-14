@@ -11,7 +11,7 @@ namespace NossoQueijo.Repositorio.Configuracoes
     {
         public void Configure(EntityTypeBuilder<Endereco> builder)
         {
-            builder.ToTable("endereco", "nossoqueijo");
+            builder.ToTable("Endereco", "dbo");
             builder.HasKey("idEndereco");
             builder.Property(i => i.Rua)
                 .HasMaxLength(150)
@@ -25,7 +25,11 @@ namespace NossoQueijo.Repositorio.Configuracoes
                 .HasMaxLength(150)
                 .HasColumnName("Complemento");
             builder.HasOne(i => i.Cidade)
-                .WithMany(j => j.Enderecos);
+                .WithMany(j => j.Enderecos)
+                .HasForeignKey("idCidade");
+            builder.HasOne(i => i.Usuario)
+                .WithOne(j => j.Endereco)
+                .HasForeignKey<Usuario>(j => j.idEndereco);
         }
     }
 }

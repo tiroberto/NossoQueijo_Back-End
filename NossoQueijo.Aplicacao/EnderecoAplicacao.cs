@@ -28,12 +28,12 @@ namespace NossoQueijo.Aplicacao
 
                     if (entidade.idEndereco == 0)
                     {
-                        _enderecoRepositorio.Adicionar(entidade);
+                        _enderecoRepositorio.AdicionarPersonalizado(entidade);
                         notificationResult.Add("Endereço cadastrado com sucesso.");
                     }
                     else
                     {
-                        _enderecoRepositorio.Atualizar(entidade);
+                        _enderecoRepositorio.AtualizarPersonalizado(entidade);
                         notificationResult.Add("Endereço atualizado com sucesso.");
                     }
 
@@ -56,24 +56,32 @@ namespace NossoQueijo.Aplicacao
 
         public Endereco BuscarPorId(int id)
         {
-            if (id > 0)
-                return _enderecoRepositorio.BuscarPorId(id);
-            return null;
+            return _enderecoRepositorio.BuscarPorId(id);
         }
 
         public IEnumerable<Endereco> ListarPorIdCidade(int idCidade)
         {
-            if (idCidade > 0)
-                return _enderecoRepositorio.ListarPorIdCidade(idCidade);           
-            return null;
+            return _enderecoRepositorio.ListarPorIdCidade(idCidade);
         }
 
-        public bool Remover(Endereco entidade)
+       public NotificationResult Remover(int id)
         {
-            if (_enderecoRepositorio.Remover(entidade))
-                return true;
-            else
-                return false;
-        }
+            var notificationResult = new NotificationResult();
+            Endereco endereco = new Endereco();
+            endereco.idEndereco = id;
+            try
+            {
+                if (notificationResult.IsValid)
+                {
+                    _enderecoRepositorio.Remover(endereco);
+                    notificationResult.Add("Removido com sucesso");
+                }
+                return notificationResult;
+            }
+            catch (Exception ex)
+            {
+                return notificationResult.Add(new NotificationError(ex.Message));
+            }
+        } 
     }
 }

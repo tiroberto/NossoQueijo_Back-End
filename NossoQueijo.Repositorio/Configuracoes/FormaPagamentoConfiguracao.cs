@@ -11,7 +11,7 @@ namespace NossoQueijo.Repositorio.Configuracoes
     {
         public void Configure(EntityTypeBuilder<FormaPagamento> builder)
         {
-            builder.ToTable("formapagamento", "nossoqueijo");
+            builder.ToTable("FormaPagamento", "dbo");
             builder.HasKey("idFormaPagamento");
             builder.Property(i => i.Descricao)
                 .HasMaxLength(150)

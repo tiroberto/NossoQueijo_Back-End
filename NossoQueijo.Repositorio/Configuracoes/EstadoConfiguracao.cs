@@ -11,13 +11,11 @@ namespace NossoQueijo.Repositorio.Configuracoes
     {
         public void Configure(EntityTypeBuilder<Estado> builder)
         {
-            builder.ToTable("estado", "nossoqueijo");
+            builder.ToTable("Estado", "dbo");
             builder.HasKey("idEstado");
             builder.Property(i => i.Nome)
                 .HasMaxLength(150)
                 .HasColumnName("Nome");
-            builder.HasMany(i => i.Cidades)
-                .WithOne(j => j.Estado);
         }
     }
 }

@@ -11,7 +11,7 @@ namespace NossoQueijo.Repositorio.Configuracoes
     {
         public void Configure(EntityTypeBuilder<Status> builder)
         {
-            builder.ToTable("status", "nossoqueijo");
+            builder.ToTable("Status", "dbo");
             builder.HasKey("idStatus");
             builder.Property(i => i.Descricao)
                 .HasMaxLength(150)

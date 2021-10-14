@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 using NossoQueijo.Aplicacao;
 using NossoQueijo.Dominio.Interfaces.Aplicacao;
 using NossoQueijo.Dominio.Interfaces.Repositorio;
@@ -90,7 +91,12 @@ namespace NossoQueijo.WebAPI
                                       .AllowAnyMethod();
                                   });
             });
+
+            services.AddControllers()
+                .AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
             services.AddControllers();
+
             services.AddSwaggerGen(c => {
 
                 c.SwaggerDoc("v1",

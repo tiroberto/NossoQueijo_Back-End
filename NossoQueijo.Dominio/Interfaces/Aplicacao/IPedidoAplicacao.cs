@@ -14,6 +14,6 @@ namespace NossoQueijo.Dominio.Interfaces.Aplicacao
         public IEnumerable<Pedido> ListarPorIdStatus(int idStatus);
         public IEnumerable<Pedido> ListarPorIdFormaPagamento(int idFormaPagamento);
         public Pedido BuscarPorId(int id);
-        public NotificationResult RemoverPersonalizado(int id);
+        public NotificationResult Remover(int id);
     }
 }

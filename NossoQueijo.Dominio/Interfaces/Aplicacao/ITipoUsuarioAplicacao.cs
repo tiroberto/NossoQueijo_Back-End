@@ -11,6 +11,6 @@ namespace NossoQueijo.Dominio.Interfaces.Aplicacao
         public NotificationResult Salvar(TipoUsuario entidade);
         public IEnumerable<TipoUsuario> ListarTodos();
         public TipoUsuario BuscarPorId(int id);
-        public NotificationResult RemoverPersonalizado(int id);
+        public NotificationResult Remover(int id);
     }
 }

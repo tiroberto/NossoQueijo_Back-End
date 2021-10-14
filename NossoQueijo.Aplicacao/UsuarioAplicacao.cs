@@ -111,7 +111,7 @@ namespace NossoQueijo.Aplicacao
             }
         }
 
-        public NotificationResult RemoverPersonalizado(int id)
+        public NotificationResult Remover(int id)
         {
             var notificationResult = new NotificationResult();
             try

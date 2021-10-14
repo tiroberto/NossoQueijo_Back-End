@@ -24,6 +24,26 @@ namespace NossoQueijo.Repositorio.RepositoriosEF
                 .ThenInclude(y => y.Estado)
                 .ToList();
         }
+         
+        public void AdicionarPersonalizado(Endereco endereco)
+        {
+            endereco.Cidade = _contexto.Cidades
+                .ToList()
+                .Where(x => x.idCidade == endereco.Cidade.idCidade)
+                .FirstOrDefault();
+            _contexto.Enderecos.Add(endereco);
+            _contexto.SaveChanges();
+        }
+
+        public void AtualizarPersonalizado(Endereco endereco)
+        {            
+            endereco.Cidade = _contexto.Cidades
+                .ToList()
+                .Where(x => x.idCidade == endereco.Cidade.idCidade)
+                .FirstOrDefault();
+            _contexto.Enderecos.Update(endereco);
+            _contexto.SaveChanges();
+        }
 
         public Endereco BuscarPorId(int id)
         {
@@ -36,6 +56,8 @@ namespace NossoQueijo.Repositorio.RepositoriosEF
         public IEnumerable<Endereco> ListarPorIdCidade(int idCidade)
         {
             return _contexto.Enderecos
+                .Include(x => x.Cidade)
+                .ThenInclude(x => x.Estado)
                 .Where(x => x.Cidade.idCidade == idCidade)
                 .ToList();
         }

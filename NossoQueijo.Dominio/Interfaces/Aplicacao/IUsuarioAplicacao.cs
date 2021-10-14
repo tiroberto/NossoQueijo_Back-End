@@ -14,6 +14,6 @@ namespace NossoQueijo.Dominio.Interfaces.Aplicacao
         public IEnumerable<Usuario> ListarPorIdTipoUsuario(int idTipoUsuario);
         public NotificationResult VerificarLogin(string email, string senha);
         public NotificationResult RemoverPorIdTipoUsuario(int idTipoUsuario);
-        public NotificationResult RemoverPersonalizado(int id);
+        public NotificationResult Remover(int id);
     }
 }

@@ -11,6 +11,6 @@ namespace NossoQueijo.Dominio.Interfaces.Aplicacao
         public NotificationResult Salvar(PedidoProduto entidade);
         public IEnumerable<PedidoProduto> ListarTodos();
         public IEnumerable<PedidoProduto> ListarPorIdPedido(int idPedido);
-        public string Excluir(PedidoProduto entidade);
+        public NotificationResult Remover(int idPedido, int idProduto);
     }
 }

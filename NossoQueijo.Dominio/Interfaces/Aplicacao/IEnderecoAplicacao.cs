@@ -12,6 +12,6 @@ namespace NossoQueijo.Dominio.Interfaces.Aplicacao
         public IEnumerable<Endereco> ListarTodos();
         public Endereco BuscarPorId(int id);
         public IEnumerable<Endereco> ListarPorIdCidade(int idCidade);
-        public bool Remover(Endereco entidade);
+        public NotificationResult Remover(int id);
     }
 }

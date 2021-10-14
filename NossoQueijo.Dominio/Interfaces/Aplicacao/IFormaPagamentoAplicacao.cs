@@ -11,6 +11,6 @@ namespace NossoQueijo.Dominio.Interfaces.Aplicacao
         public NotificationResult Salvar(FormaPagamento entidade);
         public IEnumerable<FormaPagamento> ListarTodos();
         public FormaPagamento BuscarPorId(int id);
-        public NotificationResult RemoverPersonalizado(int id);
+        public NotificationResult Remover(int id);
     }
 }

@@ -71,9 +71,9 @@ namespace NossoQueijo.Aplicacao
                 {
 
                     if ((inicio != null)
-                        || (fim != null)
-                        || (inicio < fim)
-                        || (inicio < DateTime.Now))
+                        && (fim != null)
+                        && (inicio < fim)
+                        && (inicio < DateTime.Now))
                     {
                         notificationResult.Result = _fichaProducaoRepositorio.ListarPorPeriodo(inicio, fim);
                         notificationResult.Add("Lista gerada com sucesso.");
@@ -95,10 +95,22 @@ namespace NossoQueijo.Aplicacao
             return null;
         }
 
-        public string Excluir(FichaProducao entidade)
+        public NotificationResult Remover(int id)
         {
-            _fichaProducaoRepositorio.Remover(entidade);
-            return "Excluido";
+            var notificationResult = new NotificationResult();
+            try
+            {
+                if (notificationResult.IsValid)
+                {
+                    _fichaProducaoRepositorio.RemoverPersonalizado(id);
+                    notificationResult.Add("Removido com sucesso");
+                }
+                return notificationResult;
+            }
+            catch (Exception ex)
+            {
+                return notificationResult.Add(new NotificationError(ex.Message));
+            }
         }
     }
 }

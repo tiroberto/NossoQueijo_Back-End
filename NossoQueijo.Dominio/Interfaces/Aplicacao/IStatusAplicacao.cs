@@ -11,6 +11,6 @@ namespace NossoQueijo.Dominio.Interfaces.Aplicacao
         public NotificationResult Salvar(Status entidade);
         public IEnumerable<Status> ListarTodos();
         public Status BuscarPorId(int id);
-        public NotificationResult RemoverPersonalizado(int id);
+        public NotificationResult Remover(int id);
     }
 }

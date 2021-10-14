@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using NossoQueijo.Comum.NotificationPattern;
 using NossoQueijo.Dominio.Entidades;
 using NossoQueijo.Dominio.Interfaces.Repositorio;
 using System;
@@ -49,6 +50,16 @@ namespace NossoQueijo.Repositorio.RepositoriosEF
                 .Include(x => x.Usuario)
                 .ThenInclude(y => y.TipoUsuario)
                 .First(x => x.idFichaProducao == id);
+        }
+
+        public bool RemoverPersonalizado(int id)
+        {
+            FichaProducao fichaProducaoRemover = _contexto.FichasProducao.First(x => x.idFichaProducao == id);
+            IEnumerable<EstoquePorData> estoquePorDataRemover = _contexto.EstoquePorDatas.Where(x => x.FichaProducao.idFichaProducao == id).ToList();
+            _contexto.EstoquePorDatas.RemoveRange(estoquePorDataRemover);
+            _contexto.Remove(fichaProducaoRemover);
+            _contexto.SaveChanges();
+            return true;
         }
     }
 }

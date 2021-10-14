@@ -11,7 +11,7 @@ namespace NossoQueijo.Repositorio.Configuracoes
     {
         public void Configure(EntityTypeBuilder<PedidoProduto> builder)
         {
-            builder.ToTable("pedidoproduto", "nossoqueijo");
+            builder.ToTable("PedidoProduto", "dbo");
             builder.HasKey("idProduto","idPedido");
             builder.Property(i => i.Quantidade)
                 .HasColumnName("Quantidade");

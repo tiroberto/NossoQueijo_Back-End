@@ -11,7 +11,7 @@ namespace NossoQueijo.Repositorio.Configuracoes
     {
         public void Configure(EntityTypeBuilder<Pedido> builder)
         {
-            builder.ToTable("pedido", "nossoqueijo");
+            builder.ToTable("Pedido", "dbo");
             builder.HasKey("idPedido");
             builder.Property(i => i.ValorFrete)
                 .HasColumnName("ValorFrete");

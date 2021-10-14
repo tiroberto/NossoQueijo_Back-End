@@ -11,15 +11,17 @@ namespace NossoQueijo.Repositorio.Configuracoes
     {
         public void Configure(EntityTypeBuilder<EstoquePorData> builder)
         {
-            builder.ToTable("estoquepordata", "nossoqueijo");
-            builder.HasKey("idEstoquePorData","idProduto");
+            builder.ToTable("EstoquePorData", "dbo");
+            //builder.HasKey(i => new { i.idEstoquePorData, i.idProduto });
+            builder.HasKey("idEstoquePorData", "idProduto");
             builder.Property(i => i.Quantidade)
-                .HasColumnName("Quantidade");            
+                .HasColumnName("Quantidade");
             builder.HasOne(i => i.FichaProducao)
                 .WithOne(j => j.EstoquePorData)
-                .HasForeignKey<FichaProducao>(j => j.idFichaProducao);
+                .HasForeignKey<EstoquePorData>(j => j.idFichaProducao);
             builder.HasOne(i => i.Produto)
-                .WithMany(j => j.EstoquePorDatas);
+                 .WithMany()
+                 .HasForeignKey(j => j.idProduto);
         }
     }
 }

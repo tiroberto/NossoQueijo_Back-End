@@ -13,6 +13,6 @@ namespace NossoQueijo.Dominio.Interfaces.Aplicacao
         public IEnumerable<FichaProducao> ListarPorIdUsuario(int idUsuario);
         public NotificationResult ListarPorPeriodo(DateTime inicio, DateTime fim);
         public FichaProducao BuscarPorId(int id);
-        public string Excluir(FichaProducao entidade);
+        public NotificationResult Remover(int id);
     }
 }

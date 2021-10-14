@@ -13,6 +13,6 @@ namespace NossoQueijo.Dominio.Interfaces.Aplicacao
         public EstoquePorData BuscarPorId(int id);
         public NotificationResult ListarPorPeriodo(DateTime inicio, DateTime fim);
         public IEnumerable<EstoquePorData> ListaPorIdProduto(int idProduto);
-        public string Excluir(EstoquePorData entidade);
+        public NotificationResult Remover(int id);
     }
 }
