@@ -1,5 +1,7 @@
 # NossoQueijo
 
+Em desenvolvimento para Trabalho de Conclusão de Curso no Centro Universitário do Planalto de Araxá.
+
 Desenvolvimento realizado com:
   * MSSQL Server
   * C#
