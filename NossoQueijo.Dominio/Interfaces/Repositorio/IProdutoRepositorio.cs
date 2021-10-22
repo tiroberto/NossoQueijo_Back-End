@@ -9,6 +9,6 @@ namespace NossoQueijo.Dominio.Interfaces.Repositorio
     {
         public IEnumerable<Produto> ListarTodos();
         public Produto BuscarPorId(int id);
-        public bool RemoverPersonalizado(int id);
+        public void RemoverPersonalizado(int id);
     }
 }

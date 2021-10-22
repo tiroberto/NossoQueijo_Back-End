@@ -17,7 +17,7 @@ namespace NossoQueijo.Aplicacao
             _estoquePorDataRepositorio = estoquePorDataRepositorio;
         }
 
-        public NotificationResult Salvar(EstoquePorData entidade)
+        public NotificationResult Adicionar(EstoquePorData entidade)
         {
             var notificationResult = new NotificationResult();
 
@@ -26,21 +26,36 @@ namespace NossoQueijo.Aplicacao
                 if (notificationResult.IsValid)
                 {
 
-                    if (entidade.idEstoquePorData == 0)
+                    if ((entidade.idFichaProducao > 0) && (entidade.Produto.idProduto > 0))
                     {
                         _estoquePorDataRepositorio.Adicionar(entidade);
                         notificationResult.Add("Estoque por data cadastrada com sucesso.");
                     }
-                    else
+                }
+                notificationResult.Result = entidade;
+                return notificationResult;
+            }
+            catch (Exception ex)
+            {
+                return notificationResult.Add(new NotificationError(ex.Message));
+            }
+        }
+        public NotificationResult Atualizar(EstoquePorData entidade)
+        {
+            var notificationResult = new NotificationResult();
+
+            try
+            {
+                if (notificationResult.IsValid)
+                {
+
+                    if ((entidade.idFichaProducao > 0) && (entidade.Produto.idProduto > 0))
                     {
                         _estoquePorDataRepositorio.Atualizar(entidade);
-                        notificationResult.Add("Estoque por data atualizada com sucesso.");
+                        notificationResult.Add("Estoque por data atualizado com sucesso.");
                     }
-
                 }
-
                 notificationResult.Result = entidade;
-
                 return notificationResult;
             }
             catch (Exception ex)
@@ -54,11 +69,22 @@ namespace NossoQueijo.Aplicacao
             return _estoquePorDataRepositorio.ListarTodos();
         }
 
-        public EstoquePorData BuscarPorId(int id)
+        public NotificationResult BuscarPorIdFichaProducao(int idFichaProducao)
         {
-            if (id > 0)
-                return _estoquePorDataRepositorio.BuscarPorId(id);
-            return null;
+            var notificationResult = new NotificationResult();
+            try
+            {
+                if (notificationResult.IsValid)
+                {
+                    notificationResult.Result = _estoquePorDataRepositorio.BuscarPorIdFichaProducao(idFichaProducao);
+                    notificationResult.Add("Encontrado com sucesso!");
+                }
+                return notificationResult;
+            }
+            catch (Exception ex)
+            {
+                return notificationResult.Add(new NotificationError(ex.Message));
+            }
         }
 
         public NotificationResult ListarPorPeriodo(DateTime inicio, DateTime fim)
@@ -88,18 +114,45 @@ namespace NossoQueijo.Aplicacao
             }
         }
 
-        public IEnumerable<EstoquePorData> ListaPorIdProduto(int idProduto)
-        {
-            if (idProduto > 0)
-                return _estoquePorDataRepositorio.ListarPorIdProduto(idProduto);
-            return null;
-        }
-
-        public NotificationResult Remover(int id)
+        public NotificationResult ListaPorIdProduto(int idProduto)
         {
             var notificationResult = new NotificationResult();
-            EstoquePorData estoquePorData = new EstoquePorData();
-            estoquePorData.idEstoquePorData = id;
+            try
+            {
+                if (notificationResult.IsValid)
+                {
+                    notificationResult.Result = _estoquePorDataRepositorio.ListarPorIdProduto(idProduto);
+                    notificationResult.Add("Encontrados com sucesso!");
+                }
+                return notificationResult;
+            }
+            catch (Exception ex)
+            {
+                return notificationResult.Add(new NotificationError(ex.Message));
+            }
+        }
+
+        public NotificationResult RemoverPorIdFichaProducao(int idFichaProducao)
+        {
+            var notificationResult = new NotificationResult();
+            try
+            {
+                if (notificationResult.IsValid)
+                {
+                    _estoquePorDataRepositorio.RemoverPorIdFichaProducao(idFichaProducao);
+                    notificationResult.Add("Removido com sucesso!");
+                }
+                return notificationResult;
+            }
+            catch (Exception ex)
+            {
+                return notificationResult.Add(new NotificationError(ex.Message));
+            }
+        }
+
+        public NotificationResult Remover(EstoquePorData estoquePorData)
+        {
+            var notificationResult = new NotificationResult();            
             try
             {
                 if (notificationResult.IsValid)

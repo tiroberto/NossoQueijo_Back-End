@@ -5,6 +5,7 @@ using NossoQueijo.Dominio.Entidades;
 using NossoQueijo.Dominio.Interfaces.Repositorio;
 using NossoQueijo.Comum.NotificationPattern;
 using NossoQueijo.Dominio.Interfaces.Aplicacao;
+using System.Threading.Tasks;
 
 namespace NossoQueijo.Aplicacao
 {
@@ -24,23 +25,22 @@ namespace NossoQueijo.Aplicacao
             {
                 if (notificationResult.IsValid)
                 {
-
                     if (entidade.idPedido == 0)
                     {
-                        _pedidoRepositorio.Adicionar(entidade);
+                        _pedidoRepositorio.AdicionarPersonalizado(entidade);
+                        
+                        //_pedidoProdutoAplicacao.AdicionarEmMassa(entidade.PedidoProdutos);
                         notificationResult.Add("Pedido cadastrado com sucesso.");
                     }
                     else
                     {
-                        _pedidoRepositorio.Atualizar(entidade);
+                        _pedidoRepositorio.AtualizarPersonalizado(entidade);
+                        //_pedidoProdutoAplicacao.AtualizarEmMassa(entidade.PedidoProdutos);
                         notificationResult.Add("Pedido atualizado com sucesso.");
                     }
-
                 }
-
-                notificationResult.Result = entidade;
-
-                return notificationResult;
+                notificationResult.Result = _pedidoRepositorio.UltimoAdicionado();
+                return  notificationResult;
             }
             catch (Exception ex)
             {
@@ -53,32 +53,76 @@ namespace NossoQueijo.Aplicacao
             return _pedidoRepositorio.ListarTodos();
         }
 
-        public IEnumerable<Pedido> ListarPorIdUsuario(int idUsuario)
+        public NotificationResult ListarPorIdUsuario(int idUsuario)
         {
-            if (idUsuario > 0)
-                return _pedidoRepositorio.ListarPorIdUsuario(idUsuario);
-            return null;
+            var notificationResult = new NotificationResult();
+            try
+            {
+                if (notificationResult.IsValid)
+                {
+                    notificationResult.Result = _pedidoRepositorio.ListarPorIdUsuario(idUsuario);
+                    notificationResult.Add("Pedidos encontrados com sucesso!");
+                }
+                return notificationResult;
+            }
+            catch (Exception ex)
+            {
+                return notificationResult.Add(new NotificationError(ex.Message));
+            }
         }
 
-        public IEnumerable<Pedido> ListarPorIdStatus(int idStatus)
+        public NotificationResult ListarPorIdStatus(int idStatus)
         {
-            if (idStatus > 0)
-                return _pedidoRepositorio.ListarPorIdUsuario(idStatus);
-            return null;
+            var notificationResult = new NotificationResult();
+            try
+            {
+                if (notificationResult.IsValid)
+                {
+                    notificationResult.Result = _pedidoRepositorio.ListarPorIdStatus(idStatus);
+                    notificationResult.Add("Pedidos encontrados com sucesso!");
+                }
+                return notificationResult;
+            }
+            catch (Exception ex)
+            {
+                return notificationResult.Add(new NotificationError(ex.Message));
+            }
         }
 
-        public IEnumerable<Pedido> ListarPorIdFormaPagamento(int idFormaPagamento)
+        public NotificationResult ListarPorIdFormaPagamento(int idFormaPagamento)
         {
-            if (idFormaPagamento > 0)
-                return _pedidoRepositorio.ListarPorIdUsuario(idFormaPagamento);
-            return null;
+            var notificationResult = new NotificationResult();
+            try
+            {
+                if (notificationResult.IsValid)
+                {
+                    notificationResult.Result = _pedidoRepositorio.ListarPorIdFormaPagamento(idFormaPagamento);
+                    notificationResult.Add("Pedidos encontrados com sucesso!");
+                }
+                return notificationResult;
+            }
+            catch (Exception ex)
+            {
+                return notificationResult.Add(new NotificationError(ex.Message));
+            }
         }
 
-        public Pedido BuscarPorId(int id)
+        public NotificationResult BuscarPorId(int id)
         {
-            if (id > 0)
-                return _pedidoRepositorio.BuscarPorId(id);
-            return null;
+            var notificationResult = new NotificationResult();
+            try
+            {
+                if (notificationResult.IsValid)
+                {
+                    notificationResult.Result = _pedidoRepositorio.BuscarPorId(id);
+                    notificationResult.Add("Encontrado com sucesso!");
+                }
+                return notificationResult;
+            }
+            catch (Exception ex)
+            {
+                return notificationResult.Add(new NotificationError(ex.Message));
+            }
         }
 
         public NotificationResult Remover(int id)

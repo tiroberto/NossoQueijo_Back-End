@@ -22,8 +22,6 @@ namespace NossoQueijo.Repositorio.Configuracoes
                 .HasColumnName("Preco");
             builder.Property(i => i.Peso)
                 .HasColumnName("Peso");
-            builder.HasMany(i => i.EstoquePorDatas)
-                .WithOne(j => j.Produto);
         }
     }
 }

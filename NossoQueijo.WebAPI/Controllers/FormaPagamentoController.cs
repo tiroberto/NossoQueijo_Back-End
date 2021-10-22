@@ -27,7 +27,7 @@ namespace NossoQueijo.WebAPI.Controllers
 
         [HttpGet("buscar-um")]
         [EnableCors]
-        public FormaPagamento BuscarPorId(int id) => appFormaPagamento.BuscarPorId(id);
+        public NotificationResult BuscarPorId(int id) => appFormaPagamento.BuscarPorId(id);
 
         [HttpPost("salvar")]
         public NotificationResult Salvar(FormaPagamento FormaPagamento) => appFormaPagamento.Salvar(FormaPagamento);

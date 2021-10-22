@@ -34,15 +34,15 @@ namespace NossoQueijo.WebAPI.Controllers
 
         [HttpGet("buscar-um")]
         [EnableCors]
-        public Usuario ListarPorId(int id) => appUsuario.BuscarPorId(id);
+        public NotificationResult BuscarPorId(int id) => appUsuario.BuscarPorId(id);
 
         [HttpPost("salvar")]
         public NotificationResult Salvar(Usuario usuario) => appUsuario.Salvar(usuario);
 
         [HttpDelete("excluir-por-tipousuario")]
-        public NotificationResult ExcluirPorIdTipoUsuario(int idTipoUsuario) => appUsuario.RemoverPorIdTipoUsuario(idTipoUsuario);
+        public NotificationResult RemoverPorIdTipoUsuario(int idTipoUsuario) => appUsuario.RemoverPorIdTipoUsuario(idTipoUsuario);
 
         [HttpDelete("excluir")]
-        public NotificationResult Excluir(int id) => appUsuario.Remover(id);
+        public NotificationResult Remover(int id) => appUsuario.Remover(id);
     }
 }

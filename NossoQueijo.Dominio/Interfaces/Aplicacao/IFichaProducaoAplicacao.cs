@@ -10,9 +10,9 @@ namespace NossoQueijo.Dominio.Interfaces.Aplicacao
     {
         public NotificationResult Salvar(FichaProducao entidade);
         public IEnumerable<FichaProducao> ListarTodos();
-        public IEnumerable<FichaProducao> ListarPorIdUsuario(int idUsuario);
+        public NotificationResult ListarPorIdUsuario(int idUsuario);
         public NotificationResult ListarPorPeriodo(DateTime inicio, DateTime fim);
-        public FichaProducao BuscarPorId(int id);
+        public NotificationResult BuscarPorId(int id);
         public NotificationResult Remover(int id);
     }
 }

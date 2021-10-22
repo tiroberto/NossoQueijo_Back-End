@@ -12,16 +12,15 @@ namespace NossoQueijo.Repositorio.Configuracoes
         public void Configure(EntityTypeBuilder<EstoquePorData> builder)
         {
             builder.ToTable("EstoquePorData", "dbo");
-            //builder.HasKey(i => new { i.idEstoquePorData, i.idProduto });
-            builder.HasKey("idEstoquePorData", "idProduto");
+            builder.HasKey("idFichaProducao");
             builder.Property(i => i.Quantidade)
                 .HasColumnName("Quantidade");
-            builder.HasOne(i => i.FichaProducao)
-                .WithOne(j => j.EstoquePorData)
-                .HasForeignKey<EstoquePorData>(j => j.idFichaProducao);
+            //builder.HasOne(i => i.FichaProducao)
+            //    .WithMany(i => i.EstoquesPorData)
+            //    .HasForeignKey("idFichaProducao");
             builder.HasOne(i => i.Produto)
-                 .WithMany()
-                 .HasForeignKey(j => j.idProduto);
+                .WithMany(j => j.EstoquePorDatas)
+                .HasForeignKey("idProduto");
         }
     }
 }

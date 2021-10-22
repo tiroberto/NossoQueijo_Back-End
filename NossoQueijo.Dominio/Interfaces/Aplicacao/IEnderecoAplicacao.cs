@@ -10,7 +10,7 @@ namespace NossoQueijo.Dominio.Interfaces.Aplicacao
     {
         public NotificationResult Salvar(Endereco entidade);
         public IEnumerable<Endereco> ListarTodos();
-        public Endereco BuscarPorId(int id);
+        public NotificationResult BuscarPorId(int id);
         public IEnumerable<Endereco> ListarPorIdCidade(int idCidade);
         public NotificationResult Remover(int id);
     }

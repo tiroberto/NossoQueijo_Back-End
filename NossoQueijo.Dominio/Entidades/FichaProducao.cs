@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NossoQueijo.Dominio.Entidades
 {
@@ -13,5 +15,6 @@ namespace NossoQueijo.Dominio.Entidades
         public decimal QntdSal { get; set; }
         public int QntdProduzida { get; set; }
         public EstoquePorData EstoquePorData { get; set; }
+        public Produto Produto { get; set; }
     }
 }

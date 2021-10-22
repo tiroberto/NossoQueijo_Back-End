@@ -54,11 +54,22 @@ namespace NossoQueijo.Aplicacao
             return _estadoRepositorio.ListarTodos();
         }
 
-        public Estado BuscarPorId(int id)
+        public NotificationResult BuscarPorId(int id)
         {
-            if (id > 0)
-                return _estadoRepositorio.BuscarPorId(id);
-            return null;
+            var notificationResult = new NotificationResult();
+            try
+            {
+                if (notificationResult.IsValid)
+                {
+                    notificationResult.Result = _estadoRepositorio.BuscarPorId(id);
+                    notificationResult.Add("Encontrado com sucesso!");
+                }
+                return notificationResult;
+            }
+            catch (Exception ex)
+            {
+                return notificationResult.Add(new NotificationError(ex.Message));
+            }
         }
 
         public NotificationResult Remover(int id)

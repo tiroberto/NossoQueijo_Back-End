@@ -22,14 +22,17 @@ namespace NossoQueijo.Repositorio.RepositoriosEF
             return _contexto.Enderecos
                 .Include(x => x.Cidade)
                 .ThenInclude(y => y.Estado)
+                .Include(x => x.Usuario)
                 .ToList();
         }
          
         public void AdicionarPersonalizado(Endereco endereco)
         {
             endereco.Cidade = _contexto.Cidades
-                .ToList()
                 .Where(x => x.idCidade == endereco.Cidade.idCidade)
+                .FirstOrDefault();
+            endereco.Usuario = _contexto.Usuarios
+                .Where(x => x.idUsuario == endereco.Usuario.idUsuario)
                 .FirstOrDefault();
             _contexto.Enderecos.Add(endereco);
             _contexto.SaveChanges();
@@ -38,7 +41,6 @@ namespace NossoQueijo.Repositorio.RepositoriosEF
         public void AtualizarPersonalizado(Endereco endereco)
         {            
             endereco.Cidade = _contexto.Cidades
-                .ToList()
                 .Where(x => x.idCidade == endereco.Cidade.idCidade)
                 .FirstOrDefault();
             _contexto.Enderecos.Update(endereco);
@@ -50,6 +52,7 @@ namespace NossoQueijo.Repositorio.RepositoriosEF
             return _contexto.Enderecos
                 .Include(x => x.Cidade)
                 .ThenInclude(y => y.Estado)
+                .Include(x => x.Usuario)
                 .First(x => x.idEndereco == id);
         }
 
@@ -58,6 +61,7 @@ namespace NossoQueijo.Repositorio.RepositoriosEF
             return _contexto.Enderecos
                 .Include(x => x.Cidade)
                 .ThenInclude(x => x.Estado)
+                .Include(x => x.Usuario)
                 .Where(x => x.Cidade.idCidade == idCidade)
                 .ToList();
         }

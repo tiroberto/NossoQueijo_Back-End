@@ -22,20 +22,23 @@ namespace NossoQueijo.Repositorio.RepositoriosEF
             return _contexto.EstoquePorDatas
                 .Include(x => x.FichaProducao)
                 .ThenInclude(y => y.Usuario)
-                .ThenInclude(y => y.Endereco)
+                .ThenInclude(y => y.Enderecos)
                 .ThenInclude(y => y.Cidade)
                 .ThenInclude(y => y.Estado)
                 .Include(x => x.Produto)
                 .ToList();
         }
 
-        public EstoquePorData BuscarPorId(int id)
+        public EstoquePorData BuscarPorIdFichaProducao(int idFichaProducao)
         {
             return _contexto.EstoquePorDatas
                 .Include(x => x.FichaProducao)
                 .ThenInclude(y => y.Usuario)
+                .ThenInclude(y => y.Enderecos)
+                .ThenInclude(y => y.Cidade)
+                .ThenInclude(y => y.Estado)
                 .Include(x => x.Produto)
-                .First(x => x.idEstoquePorData == id);
+                .First(x => x.idFichaProducao == idFichaProducao);
         }
 
         public IEnumerable<EstoquePorData> ListarPorPeriodo(DateTime inicio, DateTime fim)
@@ -43,9 +46,29 @@ namespace NossoQueijo.Repositorio.RepositoriosEF
             return _contexto.EstoquePorDatas
                 .Include(x => x.FichaProducao)
                 .ThenInclude(y => y.Usuario)
+                .ThenInclude(y => y.Enderecos)
+                .ThenInclude(y => y.Cidade)
+                .ThenInclude(y => y.Estado)
                 .Include(x => x.Produto)
                 .Where(x => (x.FichaProducao.Data >= inicio) && (x.FichaProducao.Data <= fim))
                 .ToList();
+        }
+
+        public void RemoverPorIdFichaProducao(int idFichaProducao)
+        {
+            EstoquePorData estoquePorDataRemover = _contexto.EstoquePorDatas
+                .First(x => x.idFichaProducao == idFichaProducao);
+            _contexto.EstoquePorDatas.Remove(estoquePorDataRemover);
+            SaveChanges();
+        }
+
+        public void RemoverPorIdProduto(int idProduto)
+        {
+            IEnumerable<EstoquePorData> estoquePorDataRemover = _contexto.EstoquePorDatas
+                .Where(x => x.Produto.idProduto == idProduto)
+                .ToList();
+            _contexto.EstoquePorDatas.RemoveRange(estoquePorDataRemover);
+            SaveChanges();
         }
         
         public IEnumerable<EstoquePorData> ListarPorIdProduto(int idProduto)
@@ -53,6 +76,9 @@ namespace NossoQueijo.Repositorio.RepositoriosEF
             return _contexto.EstoquePorDatas
                 .Include(x => x.FichaProducao)
                 .ThenInclude(y => y.Usuario)
+                .ThenInclude(y => y.Enderecos)
+                .ThenInclude(y => y.Cidade)
+                .ThenInclude(y => y.Estado)
                 .Include(x => x.Produto)
                 .Where(x => x.Produto.idProduto == idProduto)
                 .ToList();

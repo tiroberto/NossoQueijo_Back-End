@@ -27,16 +27,16 @@ namespace NossoQueijo.WebAPI.Controllers
 
         [HttpGet("buscar-um")]
         [EnableCors]
-        public FichaProducao BuscarPorId(int id) => appFichaProducao.BuscarPorId(id);
+        public NotificationResult BuscarPorId(int id) => appFichaProducao.BuscarPorId(id);
 
         [HttpGet("listar-por-periodo")]
         public NotificationResult ListarPorPeriodo(DateTime inicio, DateTime fim) => appFichaProducao.ListarPorPeriodo(inicio, fim);
 
         [HttpGet("listar-por-usuario")]
-        public IEnumerable<FichaProducao> ListarPorIdUsuario(int idUsuario) => appFichaProducao.ListarPorIdUsuario(idUsuario);
+        public NotificationResult ListarPorIdUsuario(int idUsuario) => appFichaProducao.ListarPorIdUsuario(idUsuario);
 
         [HttpPost("salvar")]
-        public NotificationResult Salvar(FichaProducao FichaProducao) => appFichaProducao.Salvar(FichaProducao);
+        public NotificationResult Salvar(FichaProducao fichaProducao) => appFichaProducao.Salvar(fichaProducao);
 
         [HttpDelete("excluir")]
         public NotificationResult Excluir(int id) => appFichaProducao.Remover(id);

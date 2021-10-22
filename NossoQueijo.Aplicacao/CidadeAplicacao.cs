@@ -54,9 +54,22 @@ namespace NossoQueijo.Aplicacao
             return _cidadeRepositorio.ListarTodos();
         }
 
-        public Cidade BuscarPorId(int id)
+        public NotificationResult BuscarPorId(int id)
         {
-            return _cidadeRepositorio.BuscarPorId(id);
+            var notificationResult = new NotificationResult();
+            try
+            {
+                if (notificationResult.IsValid)
+                {
+                    notificationResult.Result = _cidadeRepositorio.BuscarPorId(id);
+                    notificationResult.Add("Encontrado com sucesso!");
+                }
+                return notificationResult;
+            }
+            catch (Exception ex)
+            {
+                return notificationResult.Add(new NotificationError(ex.Message));
+            }
         }
 
         public IEnumerable<Cidade> ListarPorIdEstado(int idEstado)

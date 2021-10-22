@@ -20,12 +20,10 @@ namespace NossoQueijo.Aplicacao
         public NotificationResult Salvar(TipoUsuario entidade)
         {
             var notificationResult = new NotificationResult();
-
             try
             {
                 if (notificationResult.IsValid)
                 {
-
                     if (entidade.idTipoUsuario == 0)
                     {
                         _tipoUsuarioRepositorio.Adicionar(entidade);
@@ -36,11 +34,8 @@ namespace NossoQueijo.Aplicacao
                         _tipoUsuarioRepositorio.Atualizar(entidade);
                         notificationResult.Add("Tipo de usuário atualizado com sucesso.");
                     }
-
                 }
-
                 notificationResult.Result = entidade;
-
                 return notificationResult;
             }
             catch (Exception ex)
@@ -54,11 +49,22 @@ namespace NossoQueijo.Aplicacao
             return _tipoUsuarioRepositorio.ListarTodos();
         }
 
-        public TipoUsuario BuscarPorId(int id)
+        public NotificationResult BuscarPorId(int id)
         {
-            if (id > 0)
-                return _tipoUsuarioRepositorio.BuscarPorId(id);
-            return null;
+            var notificationResult = new NotificationResult();
+            try
+            {
+                if (notificationResult.IsValid)
+                {
+                    notificationResult.Result = _tipoUsuarioRepositorio.BuscarPorId(id);
+                    notificationResult.Add("Encontrado com sucesso!");
+                }
+                return notificationResult;
+            }
+            catch (Exception ex)
+            {
+                return notificationResult.Add(new NotificationError(ex.Message));
+            }
         }
 
         public NotificationResult Remover(int id)

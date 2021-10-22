@@ -54,9 +54,22 @@ namespace NossoQueijo.Aplicacao
             return _enderecoRepositorio.ListarTodos();
         }
 
-        public Endereco BuscarPorId(int id)
+        public NotificationResult BuscarPorId(int id)
         {
-            return _enderecoRepositorio.BuscarPorId(id);
+            var notificationResult = new NotificationResult();
+            try
+            {
+                if (notificationResult.IsValid)
+                {
+                    notificationResult.Result = _enderecoRepositorio.BuscarPorId(id);
+                    notificationResult.Add("Encontrado com sucesso!");
+                }
+                return notificationResult;
+            }
+            catch (Exception ex)
+            {
+                return notificationResult.Add(new NotificationError(ex.Message));
+            }
         }
 
         public IEnumerable<Endereco> ListarPorIdCidade(int idCidade)

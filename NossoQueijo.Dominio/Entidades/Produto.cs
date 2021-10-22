@@ -11,5 +11,6 @@ namespace NossoQueijo.Dominio.Entidades
         public decimal Peso { get; set; }
         public IEnumerable<EstoquePorData> EstoquePorDatas { get; set; }
         public IEnumerable<PedidoProduto> PedidoProdutos { get; set; }
+        public IEnumerable<FichaProducao> FichasProducao { get; set; }
     }
 }

@@ -28,12 +28,13 @@ namespace NossoQueijo.Aplicacao
 
                     if (entidade.idFichaProducao == 0)
                     {
-                        _fichaProducaoRepositorio.Adicionar(entidade);
+                        entidade.EstoquePorData.Quantidade = entidade.QntdProduzida;
+                        _fichaProducaoRepositorio.AdicionarPersonalizado(entidade);
                         notificationResult.Add("Ficha de produção cadastrada com sucesso.");
                     }
                     else
                     {
-                        _fichaProducaoRepositorio.Atualizar(entidade);
+                        _fichaProducaoRepositorio.AtualizarPersonalizado(entidade);
                         notificationResult.Add("Ficha de produção atualizada com sucesso.");
                     }
 
@@ -54,11 +55,22 @@ namespace NossoQueijo.Aplicacao
             return _fichaProducaoRepositorio.ListarTodos();
         }
 
-        public IEnumerable<FichaProducao> ListarPorIdUsuario(int idUsuario)
+        public NotificationResult ListarPorIdUsuario(int idUsuario)
         {
-            if (idUsuario > 0)
-                return _fichaProducaoRepositorio.ListarPorIdUsuario(idUsuario);
-            return null;
+            var notificationResult = new NotificationResult();
+            try
+            {
+                if (notificationResult.IsValid)
+                {
+                    notificationResult.Result = _fichaProducaoRepositorio.ListarPorIdUsuario(idUsuario);
+                    notificationResult.Add("Encontrado com sucesso!");
+                }
+                return notificationResult;
+            }
+            catch (Exception ex)
+            {
+                return notificationResult.Add(new NotificationError(ex.Message));
+            }
         }
 
         public NotificationResult ListarPorPeriodo(DateTime inicio, DateTime fim)
@@ -88,11 +100,22 @@ namespace NossoQueijo.Aplicacao
             }
         }
 
-        public FichaProducao BuscarPorId(int id)
+        public NotificationResult BuscarPorId(int id)
         {
-            if (id > 0)
-                return _fichaProducaoRepositorio.BuscarPorId(id);
-            return null;
+            var notificationResult = new NotificationResult();
+            try
+            {
+                if (notificationResult.IsValid)
+                {
+                    notificationResult.Result = _fichaProducaoRepositorio.BuscarPorId(id);
+                    notificationResult.Add("Encontrado com sucesso!");
+                }
+                return notificationResult;
+            }
+            catch (Exception ex)
+            {
+                return notificationResult.Add(new NotificationError(ex.Message));
+            }
         }
 
         public NotificationResult Remover(int id)

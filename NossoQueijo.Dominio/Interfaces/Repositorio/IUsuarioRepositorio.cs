@@ -8,10 +8,12 @@ namespace NossoQueijo.Dominio.Interfaces.Repositorio
     public interface IUsuarioRepositorio : IRepositorioBase<Usuario>
     {
         public IEnumerable<Usuario> ListarTodos();
+        public void AdicionarPersonalizado(Usuario usuario);
+        public void AtualizarPersonalizado(Usuario usuario);
         public Usuario BuscarPorId(int id);
         public IEnumerable<Usuario> ListarPorIdTipoUsuario(int idTipoUsuario);
         public Usuario VerificarLogin(string email, string senha);
-        public bool RemoverPorIdTipoUsuario(int idTipoUsuario);
-        public bool RemoverPersonalizado(int id);
+        public void RemoverPorIdTipoUsuario(int idTipoUsuario);
+        public void RemoverPersonalizado(int id);
     }
 }

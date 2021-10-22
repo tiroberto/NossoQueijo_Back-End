@@ -25,7 +25,7 @@ namespace NossoQueijo.WebAPI.Controllers
         public IEnumerable<Produto> ListarTodos() => appProduto.ListarTodos();
 
         [HttpGet("buscar-um")]
-        public Produto BuscarPorId(int id) => appProduto.BuscarPorId(id);
+        public NotificationResult BuscarPorId(int id) => appProduto.BuscarPorId(id);
 
         [HttpPost("salvar")]
         public NotificationResult Salvar(Produto Produto) => appProduto.Salvar(Produto);

@@ -27,18 +27,21 @@ namespace NossoQueijo.WebAPI.Controllers
 
         [HttpGet("buscar-um")]
         [EnableCors]
-        public EstoquePorData BuscarPorId(int id) => appEstoquePorData.BuscarPorId(id);
+        public NotificationResult BuscarPorIdFichaProducao(int idFichaProducao) => appEstoquePorData.BuscarPorIdFichaProducao(idFichaProducao);
 
         [HttpGet("listar-por-periodo")]
         public NotificationResult ListarPorPeriodo(DateTime inicio, DateTime fim) => appEstoquePorData.ListarPorPeriodo(inicio, fim);
 
         [HttpGet("listar-por-produto")]
-        public IEnumerable<EstoquePorData> ListarPorIdProduto(int idProduto) => appEstoquePorData.ListaPorIdProduto(idProduto);
+        public NotificationResult ListarPorIdProduto(int idProduto) => appEstoquePorData.ListaPorIdProduto(idProduto);
 
-        [HttpPost("salvar")]
-        public NotificationResult Salvar(EstoquePorData EstoquePorData) => appEstoquePorData.Salvar(EstoquePorData);
+        [HttpPost("adicionar")]
+        public NotificationResult Adicionar(EstoquePorData EstoquePorData) => appEstoquePorData.Adicionar(EstoquePorData);
+
+        [HttpPost("atualizar")]
+        public NotificationResult Atualizar(EstoquePorData EstoquePorData) => appEstoquePorData.Atualizar(EstoquePorData);
 
         [HttpDelete("excluir")]
-        public NotificationResult Excluir(int id) => appEstoquePorData.Remover(id);
+        public NotificationResult Excluir(EstoquePorData estoquePorData) => appEstoquePorData.Remover(estoquePorData);
     }
 }

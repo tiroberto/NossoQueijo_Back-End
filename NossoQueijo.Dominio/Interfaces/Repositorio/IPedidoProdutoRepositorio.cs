@@ -7,6 +7,8 @@ namespace NossoQueijo.Dominio.Interfaces.Repositorio
 {
     public interface IPedidoProdutoRepositorio : IRepositorioBase<PedidoProduto>
     {
+        public void AdicionarEmMassa(IEnumerable<PedidoProduto> pedidoProdutos);
+        public void AtualizarEmMassa(IEnumerable<PedidoProduto> pedidoProdutos);
         public IEnumerable<PedidoProduto> ListarTodos();
         public IEnumerable<PedidoProduto> ListarPorIdPedido(int idPedido);
     }

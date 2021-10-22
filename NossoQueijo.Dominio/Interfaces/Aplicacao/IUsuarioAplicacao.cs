@@ -10,7 +10,7 @@ namespace NossoQueijo.Dominio.Interfaces.Aplicacao
     {
         public NotificationResult Salvar(Usuario entidade);
         public IEnumerable<Usuario> ListarTodos();
-        public Usuario BuscarPorId(int id);
+        public NotificationResult BuscarPorId(int id);
         public IEnumerable<Usuario> ListarPorIdTipoUsuario(int idTipoUsuario);
         public NotificationResult VerificarLogin(string email, string senha);
         public NotificationResult RemoverPorIdTipoUsuario(int idTipoUsuario);

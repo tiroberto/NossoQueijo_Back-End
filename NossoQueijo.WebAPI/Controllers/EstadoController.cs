@@ -27,7 +27,7 @@ namespace NossoQueijo.WebAPI.Controllers
 
         [HttpGet("buscar-um")]
         [EnableCors]
-        public Estado BuscarPorId(int id) => appEstado.BuscarPorId(id);
+        public NotificationResult BuscarPorId(int id) => appEstado.BuscarPorId(id);
 
         [HttpPost("salvar")]
         public NotificationResult Salvar(Estado Estado) => appEstado.Salvar(Estado);

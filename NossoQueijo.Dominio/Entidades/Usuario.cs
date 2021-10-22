@@ -12,8 +12,7 @@ namespace NossoQueijo.Dominio.Entidades
         public string Email { get; set; }
         public string Senha { get; set; }
         public DateTime DataNascimento { get; set; }
-        public int idEndereco { get; set; }
-        public Endereco Endereco { get; set; }
+        public IEnumerable<Endereco> Enderecos { get; set; }
         public TipoUsuario TipoUsuario { get; set; }
         public IEnumerable<Pedido> Pedidos { get; set; }
         public IEnumerable<FichaProducao> FichasProducao { get; set; }

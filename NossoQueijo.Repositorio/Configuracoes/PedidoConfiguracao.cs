@@ -16,11 +16,14 @@ namespace NossoQueijo.Repositorio.Configuracoes
             builder.Property(i => i.ValorFrete)
                 .HasColumnName("ValorFrete");
             builder.HasOne(i => i.Usuario)
-                .WithMany(j => j.Pedidos);
+                .WithMany(j => j.Pedidos)
+                .HasForeignKey("idUsuario");
             builder.HasOne(i => i.FormaPagamento)
-                .WithMany(j => j.Pedidos);
+                .WithMany(j => j.Pedidos)
+                .HasForeignKey("idFormaPagamento");
             builder.HasOne(i => i.Status)
-                .WithMany(j => j.Pedidos);
+                .WithMany(j => j.Pedidos)
+                .HasForeignKey("idStatus");
         }
     }
 }

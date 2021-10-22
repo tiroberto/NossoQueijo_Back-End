@@ -17,9 +17,9 @@ namespace NossoQueijo.WebAPI.Controllers
     {
         private readonly IPedidoProdutoAplicacao appPedidoProduto;
 
-        public PedidoProdutoController(IPedidoProdutoAplicacao PedidoProdutoAplicacao)
+        public PedidoProdutoController(IPedidoProdutoAplicacao pedidoProdutoAplicacao)
         {
-            appPedidoProduto = PedidoProdutoAplicacao;
+            appPedidoProduto = pedidoProdutoAplicacao;
         }
 
         [HttpGet("listar")]
@@ -28,8 +28,8 @@ namespace NossoQueijo.WebAPI.Controllers
         [HttpGet("listar-por-pedido")]
         public IEnumerable<PedidoProduto> ListarPorIdPedido(int idPedido) => appPedidoProduto.ListarPorIdPedido(idPedido);
 
-        [HttpPost("salvar")]
-        public NotificationResult Salvar(PedidoProduto PedidoProduto) => appPedidoProduto.Salvar(PedidoProduto);
+        //[HttpPost("salvar")]
+        //public NotificationResult Salvar(PedidoProduto PedidoProduto) => appPedidoProduto.Salvar(PedidoProduto);
 
         [HttpDelete("excluir")]
         public NotificationResult Excluir(int idPedido, int idProduto) => appPedidoProduto.Remover(idPedido, idProduto);

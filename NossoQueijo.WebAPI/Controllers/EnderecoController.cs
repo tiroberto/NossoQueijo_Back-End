@@ -30,7 +30,7 @@ namespace NossoQueijo.WebAPI.Controllers
 
         [HttpGet("buscar-um")]
         [EnableCors]
-        public Endereco BuscarPorId(int id) => appEndereco.BuscarPorId(id);
+        public NotificationResult BuscarPorId(int id) => appEndereco.BuscarPorId(id);
 
         [HttpPost("salvar")]
         public NotificationResult Salvar(Endereco endereco) => appEndereco.Salvar(endereco);

@@ -8,11 +8,12 @@ namespace NossoQueijo.Dominio.Interfaces.Aplicacao
 {
     public interface IEstoquePorDataAplicacao
     {
-        public NotificationResult Salvar(EstoquePorData entidade);
+        public NotificationResult Adicionar(EstoquePorData entidade);
+        public NotificationResult Atualizar(EstoquePorData entidade);
         public IEnumerable<EstoquePorData> ListarTodos();
-        public EstoquePorData BuscarPorId(int id);
+        public NotificationResult BuscarPorIdFichaProducao(int idFichaProducao);
         public NotificationResult ListarPorPeriodo(DateTime inicio, DateTime fim);
-        public IEnumerable<EstoquePorData> ListaPorIdProduto(int idProduto);
-        public NotificationResult Remover(int id);
+        public NotificationResult ListaPorIdProduto(int idProduto);
+        public NotificationResult Remover(EstoquePorData estoquePorData);
     }
 }

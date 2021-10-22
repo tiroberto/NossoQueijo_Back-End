@@ -19,23 +19,26 @@ namespace NossoQueijo.Repositorio.RepositoriosEF
         public IEnumerable<Produto> ListarTodos()
         {
             return _contexto.Produtos
+                .Include(x => x.FichasProducao)
+                .Include(x => x.EstoquePorDatas)
                 .ToList();
         }
 
         public Produto BuscarPorId(int id)
         {
             return _contexto.Produtos
+                .Include(x => x.FichasProducao)
+                .Include(x => x.EstoquePorDatas)
                 .First(x => x.idProduto == id);
         }
 
-        public bool RemoverPersonalizado(int id)
+        public void RemoverPersonalizado(int id)
         {
             Produto produtoRemover = _contexto.Produtos.First(x => x.idProduto == id);
             IEnumerable<PedidoProduto> pedidoProdutosRemover = _contexto.PedidoProdutos.Where(x => x.Produto.idProduto == id);
             _contexto.PedidoProdutos.RemoveRange(pedidoProdutosRemover);
             _contexto.Produtos.Remove(produtoRemover);
             _contexto.SaveChanges();
-            return true;
         }
     }
 }

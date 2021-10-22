@@ -16,6 +16,20 @@ namespace NossoQueijo.Repositorio.RepositoriosEF
             _contexto = new Contexto();
         }
 
+        public void AdicionarEmMassa(IEnumerable<PedidoProduto> pedidoProdutos)
+        {
+            _contexto.PedidoProdutos
+                .AddRange(pedidoProdutos);
+            _contexto.SaveChanges();
+        }
+
+        public void AtualizarEmMassa(IEnumerable<PedidoProduto> pedidoProdutos)
+        {
+            _contexto.PedidoProdutos
+                .UpdateRange(pedidoProdutos);
+            _contexto.SaveChanges();
+        }
+
         public IEnumerable<PedidoProduto> ListarTodos()
         {
             return _contexto.PedidoProdutos

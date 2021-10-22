@@ -29,7 +29,7 @@ namespace NossoQueijo.Repositorio.RepositoriosEF
                 .First(x => x.idFormaPagamento == id);
         }
 
-        public bool RemoverPersonalizado(int id)
+        public void RemoverPersonalizado(int id)
         {
             FormaPagamento formaPagamentoRemover = _contexto.FormasPagamento.First(x => x.idFormaPagamento == id);
             IEnumerable<Pedido> pedidosAtualizar = _contexto.Pedidos.Where(x => x.FormaPagamento.idFormaPagamento == id).ToList();
@@ -41,7 +41,6 @@ namespace NossoQueijo.Repositorio.RepositoriosEF
                 .UpdateRange(pedidosAtualizar);
             _contexto.Remove(formaPagamentoRemover);
             _contexto.SaveChanges();
-            return true;
         }
     }
 }

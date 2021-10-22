@@ -8,7 +8,9 @@ namespace NossoQueijo.Dominio.Interfaces.Repositorio
     public interface IEstoquePorDataRepositorio : IRepositorioBase<EstoquePorData>
     {
         public IEnumerable<EstoquePorData> ListarTodos();
-        public EstoquePorData BuscarPorId(int id);
+        public EstoquePorData BuscarPorIdFichaProducao(int idFichaProducao);
+        public void RemoverPorIdFichaProducao(int idFichaProducao);
+        public void RemoverPorIdProduto(int idProduto);
         public IEnumerable<EstoquePorData> ListarPorPeriodo(DateTime inicio, DateTime fim);
         public IEnumerable<EstoquePorData> ListarPorIdProduto(int idProduto);
     }

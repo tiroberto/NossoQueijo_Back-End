@@ -28,8 +28,8 @@ namespace NossoQueijo.Repositorio.Configuracoes
                 .WithMany(j => j.Enderecos)
                 .HasForeignKey("idCidade");
             builder.HasOne(i => i.Usuario)
-                .WithOne(j => j.Endereco)
-                .HasForeignKey<Usuario>(j => j.idEndereco);
+                .WithMany(j => j.Enderecos)
+                .HasForeignKey("idUsuario");
         }
     }
 }

@@ -25,7 +25,7 @@ namespace NossoQueijo.WebAPI.Controllers
         public IEnumerable<TipoUsuario> ListarTodos() => appTipoUsuario.ListarTodos();
 
         [HttpGet("buscar-um")]
-        public TipoUsuario BuscarPorId(int id) => appTipoUsuario.BuscarPorId(id);
+        public NotificationResult BuscarPorId(int id) => appTipoUsuario.BuscarPorId(id);
 
         [HttpPost("salvar")]
         public NotificationResult Salvar(TipoUsuario TipoUsuario) => appTipoUsuario.Salvar(TipoUsuario);

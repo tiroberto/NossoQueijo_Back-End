@@ -10,10 +10,10 @@ namespace NossoQueijo.Dominio.Interfaces.Aplicacao
     {
         public NotificationResult Salvar(Pedido entidade);
         public IEnumerable<Pedido> ListarTodos();
-        public IEnumerable<Pedido> ListarPorIdUsuario(int idUsuario);
-        public IEnumerable<Pedido> ListarPorIdStatus(int idStatus);
-        public IEnumerable<Pedido> ListarPorIdFormaPagamento(int idFormaPagamento);
-        public Pedido BuscarPorId(int id);
+        public NotificationResult ListarPorIdUsuario(int idUsuario);
+        public NotificationResult ListarPorIdStatus(int idStatus);
+        public NotificationResult ListarPorIdFormaPagamento(int idFormaPagamento);
+        public NotificationResult BuscarPorId(int id);
         public NotificationResult Remover(int id);
     }
 }

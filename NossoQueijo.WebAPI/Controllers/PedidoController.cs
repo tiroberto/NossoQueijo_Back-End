@@ -26,17 +26,17 @@ namespace NossoQueijo.WebAPI.Controllers
         public IEnumerable<Pedido> ListarTodos() => appPedido.ListarTodos();
 
         [HttpGet("listar-por-usuario")]
-        public IEnumerable<Pedido> ListarPorIdUsuario(int idUsuario) => appPedido.ListarPorIdUsuario(idUsuario);
+        public NotificationResult ListarPorIdUsuario(int idUsuario) => appPedido.ListarPorIdUsuario(idUsuario);
 
         [HttpGet("listar-por-status")]
-        public IEnumerable<Pedido> ListarPorIdStatus(int idStatus) => appPedido.ListarPorIdStatus(idStatus);
+        public NotificationResult ListarPorIdStatus(int idStatus) => appPedido.ListarPorIdStatus(idStatus);
 
         [HttpGet("listar-por-formapagamento")]
-        public IEnumerable<Pedido> ListarPorIdFormaPagamento(int idFormaPagamento) => appPedido.ListarPorIdFormaPagamento(idFormaPagamento);
+        public NotificationResult ListarPorIdFormaPagamento(int idFormaPagamento) => appPedido.ListarPorIdFormaPagamento(idFormaPagamento);
 
         [HttpGet("buscar-um")]
         [EnableCors]
-        public Pedido BuscarPorId(int id) => appPedido.BuscarPorId(id);
+        public NotificationResult BuscarPorId(int id) => appPedido.BuscarPorId(id);
 
         [HttpPost("salvar")]
         public NotificationResult Salvar(Pedido Pedido) => appPedido.Salvar(Pedido);

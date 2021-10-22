@@ -28,12 +28,12 @@ namespace NossoQueijo.Aplicacao
                 {
                     if ((entidade.idUsuario == 0) && (ValidaCPF.Validar(entidade.CPF)))
                     {
-                        _usuarioRepositorio.Adicionar(entidade);
+                        _usuarioRepositorio.AdicionarPersonalizado(entidade);
                         notificationResult.Add("Usuário cadastrado com sucesso.");
                     }
                     else if(ValidaCPF.Validar(entidade.CPF))
                     {
-                        _usuarioRepositorio.Atualizar(entidade);
+                        _usuarioRepositorio.AtualizarPersonalizado(entidade);
                         notificationResult.Add("Usuário atualizado com sucesso.");
                     }
 
@@ -54,18 +54,27 @@ namespace NossoQueijo.Aplicacao
             return _usuarioRepositorio.ListarTodos();
         }
 
-        public Usuario BuscarPorId(int id)
+        public NotificationResult BuscarPorId(int id)
         {
-            if (id > 0)
-                return _usuarioRepositorio.BuscarPorId(id);
-            return null;
+            var notificationResult = new NotificationResult();
+            try
+            {
+                if (notificationResult.IsValid)
+                {
+                    notificationResult.Result = _usuarioRepositorio.BuscarPorId(id);
+                    notificationResult.Add("Encontrado com sucesso!");
+                }
+                return notificationResult;
+            }
+            catch (Exception ex)
+            {
+                return notificationResult.Add(new NotificationError(ex.Message));
+            }
         }
 
         public IEnumerable<Usuario> ListarPorIdTipoUsuario(int idTipoUsuario)
         {
-            if (idTipoUsuario > 0)
-                return _usuarioRepositorio.ListarPorIdTipoUsuario(idTipoUsuario);
-            return null;
+            return _usuarioRepositorio.ListarPorIdTipoUsuario(idTipoUsuario);
         }
 
         public NotificationResult VerificarLogin(string email, string senha)
@@ -97,7 +106,6 @@ namespace NossoQueijo.Aplicacao
                     if (idTipoUsuario > 0)
                     {
                         _usuarioRepositorio.RemoverPorIdTipoUsuario(idTipoUsuario);
-                        notificationResult.Result = true;
                         notificationResult.Add("Usuários removidos com sucesso!");
                     }
                 }
@@ -105,7 +113,6 @@ namespace NossoQueijo.Aplicacao
             }
             catch (Exception ex)
             {
-                notificationResult.Result = false;
                 notificationResult.Add(new NotificationError(ex.Message));
                 return notificationResult;
             }
@@ -119,7 +126,7 @@ namespace NossoQueijo.Aplicacao
                 if (notificationResult.IsValid)
                 {
                     _usuarioRepositorio.RemoverPersonalizado(id);
-                    notificationResult.Add("Removido com sucesso");
+                    notificationResult.Add("Usuário removido com sucesso!");
                 }
                 return notificationResult;
             }

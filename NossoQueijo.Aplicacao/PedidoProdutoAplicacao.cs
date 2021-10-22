@@ -5,6 +5,7 @@ using NossoQueijo.Dominio.Entidades;
 using NossoQueijo.Dominio.Interfaces.Repositorio;
 using NossoQueijo.Comum.NotificationPattern;
 using NossoQueijo.Dominio.Interfaces.Aplicacao;
+using System.Linq;
 
 namespace NossoQueijo.Aplicacao
 {
@@ -17,37 +18,49 @@ namespace NossoQueijo.Aplicacao
             _pedidoProdutoRepositorio = pedidoProdutoRepositorio;
         }
 
-        public NotificationResult Salvar(PedidoProduto entidade)
-        {
-            var notificationResult = new NotificationResult();
+        //public NotificationResult AdicionarEmMassa(IEnumerable<PedidoProduto> pedidoProdutos)
+        //{
+        //    var notificationResult = new NotificationResult();
 
-            try
-            {
-                if (notificationResult.IsValid)
-                {
+        //    try
+        //    {
+        //        if (notificationResult.IsValid)
+        //        {
+        //            if(pedidoProdutos.Count() > 0)
+        //            {
+        //                _pedidoProdutoRepositorio.AdicionarEmMassa(pedidoProdutos);
+        //            }
+        //        }
+        //        return notificationResult;
+        //    }
+        //    catch(Exception ex)
+        //    {
+        //        return notificationResult.Add(new NotificationError(ex.Message));
+        //    }
+        //}
 
-                    if (entidade.idPedido == 0 && entidade.idProduto == 0)
-                    {
-                        _pedidoProdutoRepositorio.Adicionar(entidade);
-                        notificationResult.Add("Pedido produto cadastrado com sucesso.");
-                    }
-                    else
-                    {
-                        _pedidoProdutoRepositorio.Atualizar(entidade);
-                        notificationResult.Add("Pedido produto atualizado com sucesso.");
-                    }
+        //public NotificationResult AtualizarEmMassa(IEnumerable<PedidoProduto> pedidoProdutos)
+        //{
+        //    var notificationResult = new NotificationResult();
 
-                }
-
-                notificationResult.Result = entidade;
-
-                return notificationResult;
-            }
-            catch (Exception ex)
-            {
-                return notificationResult.Add(new NotificationError(ex.Message));
-            }
-        }
+        //    try
+        //    {
+        //        if (notificationResult.IsValid)
+        //        {
+        //            if (pedidoProdutos.Count() > 0)
+        //            {
+        //                _pedidoProdutoRepositorio.AtualizarEmMassa(pedidoProdutos);
+        //                notificationResult.Add("Pedido produto cadastrado com sucesso.");
+        //            }
+        //        }
+        //        notificationResult.Result = pedidoProdutos;
+        //        return notificationResult;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return notificationResult.Add(new NotificationError(ex.Message));
+        //    }
+        //}
 
         public IEnumerable<PedidoProduto> ListarTodos()
         {
