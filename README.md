@@ -1,4 +1,4 @@
-# ControleDeInvestimentos
+# NossoQueijo
 
 Desenvolvimento realizado com:
   * MSSQL Server
