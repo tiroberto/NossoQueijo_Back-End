@@ -21,10 +21,10 @@ namespace NossoQueijo.Repositorio.RepositoriosEF
         {
             return _contexto.Usuarios
                 .Include(x => x.TipoUsuario)
+                .Include(x => x.FichasProducao)
                 .Include(x => x.Enderecos)
                 .ThenInclude(x => x.Cidade)
                 .ThenInclude(x => x.Estado)
-                .Include(x => x.FichasProducao)
                 .ToList();
         }
 
@@ -47,7 +47,15 @@ namespace NossoQueijo.Repositorio.RepositoriosEF
         public Usuario BuscarPorId(int id)
         {
             return _contexto.Usuarios
+                .Include(x => x.Pedidos)
+                .ThenInclude(x => x.FormaPagamento)
+                .Include(x => x.Pedidos)
+                .ThenInclude(x => x.Status)
                 .Include(x => x.TipoUsuario)
+                .Include(x => x.Enderecos)
+                .ThenInclude(x => x.Cidade)
+                .ThenInclude(x => x.Estado)
+                .Include(x => x.FichasProducao)
                 .First(x => x.idUsuario == id);
         }
 
@@ -64,8 +72,27 @@ namespace NossoQueijo.Repositorio.RepositoriosEF
 
         public Usuario VerificarLogin(string email, string senha)
         {
-            return _contexto.Usuarios
-                .First(x => (x.Email == email) && (x.Senha == senha));
+            //return _contexto.Usuarios
+            //    .Include(x => x.TipoUsuario)
+            //    .Include(x => x.FichasProducao)
+            //    .Include(x => x.Enderecos)
+            //    .ThenInclude(x => x.Cidade)
+            //    .ThenInclude(x => x.Estado)
+            //    .Include(x => x.Pedidos)
+            //    .ThenInclude(x => x.FormaPagamento)
+            //    .Include(x => x.Pedidos)
+            //    .ThenInclude(x => x.Status)
+            //    .Include(x => x.Pedidos)
+            //    .ThenInclude(x => x.PedidoProdutos)
+            //    .Where(x => x.Email == email && x.Senha == senha)
+            //    .SingleOrDefault();
+            var usuarios = ListarTodos();
+            foreach (var item in usuarios)
+            {
+                if ((item.Email == email) && (item.Senha == senha))
+                    return item;
+            }
+            return null;
         }
 
         public void RemoverPorIdTipoUsuario(int idTipoUsuario)

@@ -23,11 +23,14 @@ namespace NossoQueijo.Repositorio.Configuracoes
                 .HasMaxLength(50)
                 .HasColumnName("Email");
             builder.Property(i => i.Senha)
-                .HasMaxLength(20)
+                .HasMaxLength(30)
                 .HasColumnName("Senha");
             builder.Property(i => i.DataNascimento)
                 .HasColumnType("date")
                 .HasColumnName("DataNascimento");
+            builder.Property(i => i.Logado)
+                .HasColumnType("bit")
+                .HasColumnName("Logado");
             builder.HasOne(i => i.TipoUsuario)
                 .WithMany(j => j.Usuarios)
                 .HasForeignKey("idTipoUsuario");

@@ -64,7 +64,7 @@ namespace NossoQueijo.Repositorio.RepositoriosEF
                 .Include(x => x.FormaPagamento)
                 .Include(x => x.Status)
                 .Include(x => x.PedidoProdutos)
-                .Include(x => x.Usuario)
+                .ThenInclude(x => x.Produto)
                 .Where(x => x.Usuario.idUsuario == idUsuario)
                 .ToList();
         }

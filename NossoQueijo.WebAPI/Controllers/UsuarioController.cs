@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Cors;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NossoQueijo.Aplicacao;
@@ -29,8 +30,8 @@ namespace NossoQueijo.WebAPI.Controllers
         [HttpGet("listar-por-tipousuario")]
         public IEnumerable<Usuario> ListarPorIdTipoUsuario(int idTipoUsuario) => appUsuario.ListarPorIdTipoUsuario(idTipoUsuario);
 
-        [HttpGet("verificar-login")]
-        public NotificationResult VerificarLogin(string email, string senha) => appUsuario.VerificarLogin(email, senha);
+        //[HttpGet("verificar-login")]
+        //public NotificationResult VerificarLogin(string email, string senha) => appUsuario.VerificarLogin(email, senha);
 
         [HttpGet("buscar-um")]
         [EnableCors]
@@ -44,5 +45,10 @@ namespace NossoQueijo.WebAPI.Controllers
 
         [HttpDelete("excluir")]
         public NotificationResult Remover(int id) => appUsuario.Remover(id);
+
+        [Route("login")]
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<dynamic> Authenticate(string email, string senha) => appUsuario.VerificarLogin(email, senha);
     }
 }

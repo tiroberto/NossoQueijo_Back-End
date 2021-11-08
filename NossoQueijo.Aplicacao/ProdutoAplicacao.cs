@@ -5,6 +5,7 @@ using NossoQueijo.Dominio.Entidades;
 using NossoQueijo.Dominio.Interfaces.Repositorio;
 using NossoQueijo.Comum.NotificationPattern;
 using NossoQueijo.Dominio.Interfaces.Aplicacao;
+using System.Threading.Tasks;
 
 namespace NossoQueijo.Aplicacao
 {

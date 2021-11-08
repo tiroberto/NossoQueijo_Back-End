@@ -12,7 +12,7 @@ namespace NossoQueijo.Dominio.Interfaces.Aplicacao
         public IEnumerable<Usuario> ListarTodos();
         public NotificationResult BuscarPorId(int id);
         public IEnumerable<Usuario> ListarPorIdTipoUsuario(int idTipoUsuario);
-        public NotificationResult VerificarLogin(string email, string senha);
+        public dynamic VerificarLogin(string email, string senha);
         public NotificationResult RemoverPorIdTipoUsuario(int idTipoUsuario);
         public NotificationResult Remover(int id);
     }

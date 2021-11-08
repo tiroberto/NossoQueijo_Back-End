@@ -24,6 +24,9 @@ namespace NossoQueijo.Repositorio.Configuracoes
                 .HasColumnName("Peso");
             builder.Property(i => i.Imagem)
                 .HasColumnName("Imagem");
+            builder.Property(i => i.AdicionadoAoCarrinho)
+                .HasColumnType("bit")
+                .HasColumnName("AdicionadoAoCarrinho");
         }
     }
 }

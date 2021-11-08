@@ -6,6 +6,7 @@ using NossoQueijo.Dominio.Interfaces.Repositorio;
 using NossoQueijo.Comum.NotificationPattern;
 using NossoQueijo.Dominio.Interfaces.Aplicacao;
 using NossoQueijo.Comum.Util;
+using Microsoft.AspNetCore.Authorization;
 using System.Text.RegularExpressions;
 
 namespace NossoQueijo.Aplicacao
@@ -13,10 +14,12 @@ namespace NossoQueijo.Aplicacao
     public class UsuarioAplicacao : IUsuarioAplicacao
     {
         private readonly IUsuarioRepositorio _usuarioRepositorio;
+        private readonly IPedidoRepositorio _pedidoRepositorio;
 
-        public UsuarioAplicacao(IUsuarioRepositorio usuarioRepositorio)
+        public UsuarioAplicacao(IUsuarioRepositorio usuarioRepositorio, IPedidoRepositorio pedidoRepositorio)
         {
             _usuarioRepositorio = usuarioRepositorio;
+            _pedidoRepositorio = pedidoRepositorio;
         }
 
         public NotificationResult Salvar(Usuario entidade)
@@ -77,23 +80,22 @@ namespace NossoQueijo.Aplicacao
             return _usuarioRepositorio.ListarPorIdTipoUsuario(idTipoUsuario);
         }
 
-        public NotificationResult VerificarLogin(string email, string senha)
+        public dynamic VerificarLogin(string email, string senha)
         {
-            var notificationResult = new NotificationResult();
             Regex rg = new Regex(@"^[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})$");
-            try
-            {
-                if ((rg.IsMatch(email)) && (senha.Length >= 8))
-                {
-                    notificationResult.Result = _usuarioRepositorio.VerificarLogin(email, senha);
-                    notificationResult.Add("Usuário verificado com sucesso!");
-                }
-                return notificationResult;
-            }
-            catch (Exception ex)
-            {
-                return notificationResult.Add(new NotificationError(ex.Message));
-            }
+            Usuario usuario = new Usuario();
+            if ((rg.IsMatch(email)) && (senha.Length >= 8))
+                usuario = _usuarioRepositorio.VerificarLogin(email, senha);
+
+
+            if (usuario == null)
+                return new { usuario = "", token = "", message = "Usuário ou senha inválidos.", logado = false };
+
+            var token = Token.GenerateToken(usuario);
+            usuario.Senha = "";
+            //var pedidos = _pedidoRepositorio.ListarPorIdUsuario(usuario.idUsuario);
+
+            return new { usuario = usuario, token = token, message = "Login efetuado com sucesso.", logado = true};
         }
 
         public NotificationResult RemoverPorIdTipoUsuario(int idTipoUsuario)

@@ -11,6 +11,7 @@ namespace NossoQueijo.Dominio.Entidades
         public string CPF { get; set; }
         public string Email { get; set; }
         public string Senha { get; set; }
+        public bool Logado { get; set; }
         public DateTime DataNascimento { get; set; }
         public IEnumerable<Endereco> Enderecos { get; set; }
         public TipoUsuario TipoUsuario { get; set; }

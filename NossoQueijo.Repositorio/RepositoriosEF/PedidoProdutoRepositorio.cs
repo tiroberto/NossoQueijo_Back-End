@@ -44,6 +44,7 @@ namespace NossoQueijo.Repositorio.RepositoriosEF
         public IEnumerable<PedidoProduto> ListarPorIdPedido(int idPedido)
         {
             return _contexto.PedidoProdutos
+                .Include(x => x.Produto)
                 .Where(x => x.idPedido == idPedido)
                 .ToList();
         }

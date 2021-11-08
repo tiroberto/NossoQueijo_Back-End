@@ -6,10 +6,14 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 using NossoQueijo.Aplicacao;
+using NossoQueijo.Comum.Util;
 using NossoQueijo.Dominio.Interfaces.Aplicacao;
 using NossoQueijo.Dominio.Interfaces.Repositorio;
 using NossoQueijo.Repositorio.RepositoriosEF;
 using System;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 namespace NossoQueijo.WebAPI
 {
@@ -79,21 +83,35 @@ namespace NossoQueijo.WebAPI
                 options.AddPolicy(name: MyAllowSpecificOrigins,
                                   builder =>
                                   {
-                                      builder.WithOrigins("http://localhost:8101/",
-                                                          "http://localhost:8101",
-                                                          "https://localhost:8101/",
-                                                          "https://localhost:8101",
-                                                          "http://localhost:8100/",
-                                                          "http://localhost:8100",
-                                                          "https://localhost:8100/",
-                                                          "https://localhost:8100")
+                                      builder.WithOrigins("http://localhost:3000")
                                       .AllowAnyHeader()
-                                      .AllowAnyMethod();
+                                      .AllowAnyMethod()
+                                      .AllowAnyHeader();
                                   });
             });
 
+
             services.AddControllers()
                 .AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
+            var key = Encoding.ASCII.GetBytes(AuthSettings.Secret);
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+                .AddJwtBearer(x =>
+                {
+                    x.RequireHttpsMetadata = false;
+                    x.SaveToken = true;
+                    x.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(key),
+                        ValidateIssuer = false,
+                        ValidateAudience = false
+                    };
+                });
 
             services.AddControllers();
 
@@ -132,6 +150,7 @@ namespace NossoQueijo.WebAPI
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseCors(MyAllowSpecificOrigins);

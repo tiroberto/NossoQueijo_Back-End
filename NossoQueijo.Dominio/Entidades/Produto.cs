@@ -10,6 +10,7 @@ namespace NossoQueijo.Dominio.Entidades
         public decimal Preco { get; set; }
         public decimal Peso { get; set; }
         public string Imagem { get; set; }
+        public bool AdicionadoAoCarrinho { get; set; }
         public IEnumerable<EstoquePorData> EstoquePorDatas { get; set; }
         public IEnumerable<PedidoProduto> PedidoProdutos { get; set; }
         public IEnumerable<FichaProducao> FichasProducao { get; set; }

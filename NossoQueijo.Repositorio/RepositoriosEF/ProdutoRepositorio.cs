@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
+
 namespace NossoQueijo.Repositorio.RepositoriosEF
 {
     public class  ProdutoRepositorio : RepositorioBase<Produto> , IProdutoRepositorio
@@ -20,7 +22,9 @@ namespace NossoQueijo.Repositorio.RepositoriosEF
         {
             return _contexto.Produtos
                 .Include(x => x.FichasProducao)
+                .ThenInclude(x => x.Usuario)
                 .Include(x => x.EstoquePorDatas)
+                .Include(x => x.PedidoProdutos)
                 .ToList();
         }
 
