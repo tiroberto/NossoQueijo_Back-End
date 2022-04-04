@@ -26,7 +26,7 @@ namespace NossoQueijo.Repositorio.RepositoriosEF
                 .ToList();
         }
          
-        public void AdicionarPersonalizado(Endereco endereco)
+        public int AdicionarPersonalizado(Endereco endereco)
         {
             endereco.Cidade = _contexto.Cidades
                 .Where(x => x.idCidade == endereco.Cidade.idCidade)
@@ -36,13 +36,16 @@ namespace NossoQueijo.Repositorio.RepositoriosEF
                 .FirstOrDefault();
             _contexto.Enderecos.Add(endereco);
             _contexto.SaveChanges();
+
+            return endereco.idEndereco;
         }
 
         public void AtualizarPersonalizado(Endereco endereco)
         {            
             endereco.Cidade = _contexto.Cidades
-                .Where(x => x.idCidade == endereco.Cidade.idCidade)
-                .FirstOrDefault();
+                .First(x => x.idCidade == endereco.Cidade.idCidade);
+            endereco.Usuario = _contexto.Usuarios
+                .First(x => x.idUsuario == endereco.Usuario.idUsuario);
             _contexto.Enderecos.Update(endereco);
             _contexto.SaveChanges();
         }

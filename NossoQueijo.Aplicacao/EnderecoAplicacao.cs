@@ -28,8 +28,13 @@ namespace NossoQueijo.Aplicacao
 
                     if (entidade.idEndereco == 0)
                     {
-                        _enderecoRepositorio.AdicionarPersonalizado(entidade);
+                        entidade.idEndereco = _enderecoRepositorio.AdicionarPersonalizado(entidade);
                         notificationResult.Add("Endereço cadastrado com sucesso.");
+                        if (entidade.idEndereco > 0)
+                        {
+                            notificationResult.Result = entidade;
+                            return notificationResult;
+                        }
                     }
                     else
                     {

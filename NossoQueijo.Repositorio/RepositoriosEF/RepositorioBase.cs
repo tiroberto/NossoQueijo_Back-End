@@ -18,11 +18,13 @@ namespace NossoQueijo.Repositorio.RepositoriosEF
             Entidade = Contexto.Set<T>();
         }
 
-        public void Adicionar(T entidade, bool saveChanges = true)
+        public T Adicionar(T entidade, bool saveChanges = true)
         {
             Entidade.Add(entidade);
             if (saveChanges)
                 SaveChanges();
+
+            return entidade;
         }
 
         public void Atualizar(T entidade, bool saveChanges = true)

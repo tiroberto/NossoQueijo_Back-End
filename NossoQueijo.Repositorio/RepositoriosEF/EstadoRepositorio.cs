@@ -1,4 +1,5 @@
-﻿using NossoQueijo.Dominio.Entidades;
+﻿using Microsoft.EntityFrameworkCore;
+using NossoQueijo.Dominio.Entidades;
 using NossoQueijo.Dominio.Interfaces.Repositorio;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace NossoQueijo.Repositorio.RepositoriosEF
         public IEnumerable<Estado> ListarTodos()
         {
             return _contexto.Estados
+                .Include(x => x.Cidades)
                 .ToList();
         }
 

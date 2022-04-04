@@ -16,6 +16,8 @@ namespace NossoQueijo.Repositorio.Configuracoes
             builder.Property(i => i.Descricao)
                 .HasMaxLength(150)
                 .HasColumnName("Descricao");
+            builder.Property(i => i.Imagem)
+                .HasColumnName("Imagem");
         }
     }
 }

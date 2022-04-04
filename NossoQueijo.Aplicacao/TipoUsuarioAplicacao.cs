@@ -26,8 +26,13 @@ namespace NossoQueijo.Aplicacao
                 {
                     if (entidade.idTipoUsuario == 0)
                     {
-                        _tipoUsuarioRepositorio.Adicionar(entidade);
+                        entidade.idTipoUsuario = _tipoUsuarioRepositorio.Adicionar(entidade).idTipoUsuario;
                         notificationResult.Add("Tipo de usuário cadastrado com sucesso.");
+                        if(entidade.idTipoUsuario > 0)
+                        {
+                            notificationResult.Result = entidade;
+                            return notificationResult;
+                        }
                     }
                     else
                     {

@@ -28,8 +28,13 @@ namespace NossoQueijo.Aplicacao
 
                     if (entidade.idEstado == 0)
                     {
-                        _estadoRepositorio.Adicionar(entidade);
+                        entidade.idEstado = _estadoRepositorio.Adicionar(entidade).idEstado;
                         notificationResult.Add("Estado cadastrado com sucesso.");
+                        if(entidade.idEstado > 0)
+                        {
+                            notificationResult.Result = entidade;
+                            return notificationResult;
+                        }
                     }
                     else
                     {

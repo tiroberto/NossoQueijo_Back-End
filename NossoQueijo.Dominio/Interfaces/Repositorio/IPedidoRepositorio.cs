@@ -7,9 +7,10 @@ namespace NossoQueijo.Dominio.Interfaces.Repositorio
 {
     public interface IPedidoRepositorio : IRepositorioBase<Pedido>
     {
-        public void AdicionarPersonalizado(Pedido pedido);
+        public int AdicionarPersonalizado(Pedido pedido);
         public void AtualizarPersonalizado(Pedido pedido);
         public Pedido UltimoAdicionado();
+        public IEnumerable<Pedido> ListarPorPeriodo(DateTime inicio, DateTime fim);
         public IEnumerable<Pedido> ListarTodos();
         public IEnumerable<Pedido> ListarPorIdUsuario(int idUsuario);
         public IEnumerable<Pedido> ListarPorIdStatus(int idStatus);

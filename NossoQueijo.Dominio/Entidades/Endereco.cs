@@ -1,4 +1,6 @@
-﻿namespace NossoQueijo.Dominio.Entidades
+﻿using System.Collections.Generic;
+
+namespace NossoQueijo.Dominio.Entidades
 {
     public class Endereco
     {
@@ -10,5 +12,6 @@
         public string Complemento { get; set; }
         public Cidade Cidade { get; set; }
         public Usuario Usuario { get; set; }
+        public IEnumerable<Pedido> Pedidos { get; set; }
     }
 }

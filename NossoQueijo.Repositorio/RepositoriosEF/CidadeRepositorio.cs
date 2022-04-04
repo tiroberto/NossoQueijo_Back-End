@@ -19,7 +19,7 @@ namespace NossoQueijo.Repositorio.RepositoriosEF
             _contexto = new Contexto();
         }
 
-        public void AdicionarPersonalizado(Cidade cidade)
+        public int AdicionarPersonalizado(Cidade cidade)
         {
             cidade.Estado = _contexto.Estados
                 .ToList()
@@ -27,6 +27,8 @@ namespace NossoQueijo.Repositorio.RepositoriosEF
                 .FirstOrDefault();
             _contexto.Cidades.Add(cidade);
             _contexto.SaveChanges();
+
+            return cidade.idCidade;
         }
 
         public void AtualizarPersonalizado(Cidade cidade)

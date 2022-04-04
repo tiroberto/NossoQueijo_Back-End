@@ -28,8 +28,13 @@ namespace NossoQueijo.Aplicacao
 
                     if (entidade.idCidade == 0)
                     {
-                        _cidadeRepositorio.AdicionarPersonalizado(entidade);
+                        entidade.idCidade = _cidadeRepositorio.AdicionarPersonalizado(entidade);
                         notificationResult.Add("Cidade cadastrada com sucesso.");
+                        if(entidade.idCidade > 0)
+                        {
+                            notificationResult.Result = entidade;
+                            return notificationResult;
+                        }
                     }
                     else
                     {

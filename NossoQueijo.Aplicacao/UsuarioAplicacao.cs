@@ -31,13 +31,32 @@ namespace NossoQueijo.Aplicacao
                 {
                     if ((entidade.idUsuario == 0) && (ValidaCPF.Validar(entidade.CPF)))
                     {
-                        _usuarioRepositorio.AdicionarPersonalizado(entidade);
-                        notificationResult.Add("Usuário cadastrado com sucesso.");
+                        var verificaLoginExistencia = _usuarioRepositorio.VerificarLogin(entidade.Email, entidade.Senha);
+                        if (verificaLoginExistencia != null)
+                        {
+                            notificationResult.Result = verificaLoginExistencia;
+                            notificationResult.Add("Usuário já possui cadastro.");
+                            return notificationResult;
+                        }
+                        else
+                        {
+                            entidade.idUsuario = _usuarioRepositorio.AdicionarPersonalizado(entidade);
+                            if (entidade.idUsuario > 0)
+                            {
+                                notificationResult.Add("Usuário cadastrado com sucesso.");
+                                notificationResult.Result = entidade;
+                                return notificationResult;
+                            }
+                        }
                     }
                     else if(ValidaCPF.Validar(entidade.CPF))
                     {
                         _usuarioRepositorio.AtualizarPersonalizado(entidade);
                         notificationResult.Add("Usuário atualizado com sucesso.");
+                    }
+                    else
+                    {
+                        notificationResult.Add("CPF inválido");
                     }
 
                 }
@@ -93,9 +112,9 @@ namespace NossoQueijo.Aplicacao
 
             var token = Token.GenerateToken(usuario);
             usuario.Senha = "";
-            //var pedidos = _pedidoRepositorio.ListarPorIdUsuario(usuario.idUsuario);
+            var pedidos = _pedidoRepositorio.ListarPorIdUsuario(usuario.idUsuario);            
 
-            return new { usuario = usuario, token = token, message = "Login efetuado com sucesso.", logado = true};
+            return new { usuario = usuario, pedidos = pedidos, enderecos = usuario.Enderecos, token = token, message = "Login efetuado com sucesso.", logado = true};
         }
 
         public NotificationResult RemoverPorIdTipoUsuario(int idTipoUsuario)

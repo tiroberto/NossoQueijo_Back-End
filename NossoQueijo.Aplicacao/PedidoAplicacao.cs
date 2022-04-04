@@ -27,10 +27,13 @@ namespace NossoQueijo.Aplicacao
                 {
                     if (entidade.idPedido == 0)
                     {
-                        _pedidoRepositorio.AdicionarPersonalizado(entidade);
-                        
-                        //_pedidoProdutoAplicacao.AdicionarEmMassa(entidade.PedidoProdutos);
+                        entidade.idPedido = _pedidoRepositorio.AdicionarPersonalizado(entidade);
                         notificationResult.Add("Pedido cadastrado com sucesso.");
+                        if(entidade.idPedido > 0)
+                        {
+                            notificationResult.Result = entidade;
+                            return notificationResult;
+                        }
                     }
                     else
                     {
@@ -107,6 +110,33 @@ namespace NossoQueijo.Aplicacao
             }
         }
 
+        public NotificationResult ListarPorPeriodo(DateTime inicio, DateTime fim)
+        {
+            var notificationResult = new NotificationResult();
+
+            try
+            {
+                if (notificationResult.IsValid)
+                {
+
+                    if ((inicio != null)
+                        && (fim != null)
+                        && (inicio < fim)
+                        && (inicio < DateTime.Now))
+                    {
+                        notificationResult.Result = _pedidoRepositorio.ListarPorPeriodo(inicio, fim);
+                        notificationResult.Add("Lista gerada com sucesso.");
+                    }
+
+                }
+                return notificationResult;
+            }
+            catch (Exception ex)
+            {
+                return notificationResult.Add(new NotificationError(ex.Message));
+            }
+        }
+
         public NotificationResult BuscarPorId(int id)
         {
             var notificationResult = new NotificationResult();
@@ -134,6 +164,7 @@ namespace NossoQueijo.Aplicacao
                 {
                     _pedidoRepositorio.RemoverPersonalizado(id);
                     notificationResult.Add("Removido com sucesso");
+                    notificationResult.Result = true;
                 }
                 return notificationResult;
             }

@@ -6,6 +6,9 @@ using NossoQueijo.Dominio.Interfaces.Repositorio;
 using NossoQueijo.Comum.NotificationPattern;
 using NossoQueijo.Dominio.Interfaces.Aplicacao;
 using System.Threading.Tasks;
+using System.Globalization;
+using System.Collections;
+using System.Linq;
 
 namespace NossoQueijo.Aplicacao
 {
@@ -29,8 +32,13 @@ namespace NossoQueijo.Aplicacao
 
                     if (entidade.idProduto == 0)
                     {
-                        _produtoRepositorio.Adicionar(entidade);
+                        entidade.idProduto = _produtoRepositorio.Adicionar(entidade).idProduto;
                         notificationResult.Add("Produto cadastrado com sucesso.");
+                        if(entidade.idProduto > 0)
+                        {
+                            notificationResult.Result = entidade;
+                            return notificationResult;
+                        }
                     }
                     else
                     {

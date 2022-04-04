@@ -10,6 +10,7 @@ namespace NossoQueijo.Dominio.Interfaces.Aplicacao
     {
         public NotificationResult Salvar(Pedido entidade);
         public IEnumerable<Pedido> ListarTodos();
+        public NotificationResult ListarPorPeriodo(DateTime inicio, DateTime fim);
         public NotificationResult ListarPorIdUsuario(int idUsuario);
         public NotificationResult ListarPorIdStatus(int idStatus);
         public NotificationResult ListarPorIdFormaPagamento(int idFormaPagamento);

@@ -28,12 +28,14 @@ namespace NossoQueijo.Repositorio.RepositoriosEF
                 .ToList();
         }
 
-        public void AdicionarPersonalizado(Usuario usuario)
+        public int AdicionarPersonalizado(Usuario usuario)
         {
             usuario.TipoUsuario = _contexto.TiposUsuario
                 .First(x => x.idTipoUsuario == usuario.TipoUsuario.idTipoUsuario);
             _contexto.Usuarios.Add(usuario);
             _contexto.SaveChanges();
+
+            return usuario.idUsuario;
         }
 
         public void AtualizarPersonalizado(Usuario usuario)
@@ -72,27 +74,21 @@ namespace NossoQueijo.Repositorio.RepositoriosEF
 
         public Usuario VerificarLogin(string email, string senha)
         {
-            //return _contexto.Usuarios
-            //    .Include(x => x.TipoUsuario)
-            //    .Include(x => x.FichasProducao)
-            //    .Include(x => x.Enderecos)
-            //    .ThenInclude(x => x.Cidade)
-            //    .ThenInclude(x => x.Estado)
-            //    .Include(x => x.Pedidos)
-            //    .ThenInclude(x => x.FormaPagamento)
-            //    .Include(x => x.Pedidos)
-            //    .ThenInclude(x => x.Status)
-            //    .Include(x => x.Pedidos)
-            //    .ThenInclude(x => x.PedidoProdutos)
-            //    .Where(x => x.Email == email && x.Senha == senha)
-            //    .SingleOrDefault();
-            var usuarios = ListarTodos();
-            foreach (var item in usuarios)
-            {
-                if ((item.Email == email) && (item.Senha == senha))
-                    return item;
-            }
-            return null;
+            return _contexto.Usuarios
+                .Include(x => x.TipoUsuario)
+                .Include(x => x.FichasProducao)
+                .Include(x => x.Enderecos)
+                .ThenInclude(x => x.Cidade)
+                .ThenInclude(x => x.Estado)
+                .Where(x => x.Email == email && x.Senha == senha)
+                .SingleOrDefault();
+            //var usuarios = ListarTodos();
+            //foreach (var item in usuarios)
+            //{
+            //    if ((item.Email == email) && (item.Senha == senha))
+            //        return item;
+            //}
+            //return null;
         }
 
         public void RemoverPorIdTipoUsuario(int idTipoUsuario)

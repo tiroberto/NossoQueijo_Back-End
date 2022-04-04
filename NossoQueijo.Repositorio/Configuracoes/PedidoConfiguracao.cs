@@ -15,6 +15,9 @@ namespace NossoQueijo.Repositorio.Configuracoes
             builder.HasKey("idPedido");
             builder.Property(i => i.ValorFrete)
                 .HasColumnName("ValorFrete");
+            builder.Property(i => i.Data)
+                .HasColumnName("Data")
+                .HasColumnType("datetime");
             builder.HasOne(i => i.Usuario)
                 .WithMany(j => j.Pedidos)
                 .HasForeignKey("idUsuario");
@@ -24,6 +27,10 @@ namespace NossoQueijo.Repositorio.Configuracoes
             builder.HasOne(i => i.Status)
                 .WithMany(j => j.Pedidos)
                 .HasForeignKey("idStatus");
+            builder.HasOne(i => i.EnderecoEntrega)
+                .WithMany(j => j.Pedidos)
+                .HasForeignKey("idEndereco");
+            
         }
     }
 }

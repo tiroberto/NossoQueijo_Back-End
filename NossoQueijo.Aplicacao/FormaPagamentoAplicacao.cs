@@ -28,8 +28,13 @@ namespace NossoQueijo.Aplicacao
 
                     if (entidade.idFormaPagamento == 0)
                     {
-                        _formaPagamentoRepositorio.Adicionar(entidade);
+                        entidade.idFormaPagamento = _formaPagamentoRepositorio.Adicionar(entidade).idFormaPagamento;
                         notificationResult.Add("Forma de pagamento cadastrada com sucesso.");
+                        if(entidade.idFormaPagamento > 0)
+                        {
+                            notificationResult.Result = entidade;
+                            return notificationResult;
+                        }
                     }
                     else
                     {

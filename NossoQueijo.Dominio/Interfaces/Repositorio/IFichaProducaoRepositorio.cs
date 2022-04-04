@@ -9,7 +9,7 @@ namespace NossoQueijo.Dominio.Interfaces.Repositorio
     public interface IFichaProducaoRepositorio : IRepositorioBase<FichaProducao>
     {
         public IEnumerable<FichaProducao> ListarTodos();
-        public void AdicionarPersonalizado(FichaProducao fichaProducao);
+        public int AdicionarPersonalizado(FichaProducao fichaProducao);
         public void AtualizarPersonalizado(FichaProducao fichaProducao);
         public IEnumerable<FichaProducao> ListarPorIdUsuario(int idUsuario);
         public IEnumerable<FichaProducao> ListarPorPeriodo(DateTime inicio, DateTime fim);

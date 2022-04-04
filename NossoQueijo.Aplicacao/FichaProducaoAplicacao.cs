@@ -29,8 +29,13 @@ namespace NossoQueijo.Aplicacao
                     if (entidade.idFichaProducao == 0)
                     {
                         entidade.EstoquePorData.Quantidade = entidade.QntdProduzida;
-                        _fichaProducaoRepositorio.AdicionarPersonalizado(entidade);
+                        entidade.idFichaProducao = _fichaProducaoRepositorio.AdicionarPersonalizado(entidade);
                         notificationResult.Add("Ficha de produção cadastrada com sucesso.");
+                        if(entidade.idFichaProducao > 0)
+                        {
+                            notificationResult.Result = entidade;
+                            return notificationResult;
+                        }
                     }
                     else
                     {

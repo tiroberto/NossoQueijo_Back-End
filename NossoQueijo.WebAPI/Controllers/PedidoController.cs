@@ -25,6 +25,9 @@ namespace NossoQueijo.WebAPI.Controllers
         [HttpGet("listar")]
         public IEnumerable<Pedido> ListarTodos() => appPedido.ListarTodos();
 
+        [HttpGet("listar-por-periodo")]
+        public NotificationResult ListarPorPeriodo(DateTime inicio, DateTime fim) => appPedido.ListarPorPeriodo(inicio, fim);
+
         [HttpGet("listar-por-usuario")]
         public NotificationResult ListarPorIdUsuario(int idUsuario) => appPedido.ListarPorIdUsuario(idUsuario);
 

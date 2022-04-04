@@ -31,7 +31,7 @@ namespace NossoQueijo.Repositorio.RepositoriosEF
                 .ToList();
         }
 
-        public void AdicionarPersonalizado(FichaProducao fichaProducao)
+        public int AdicionarPersonalizado(FichaProducao fichaProducao)
         {
             fichaProducao.Usuario = _contexto.Usuarios
                 .Where(x => x.idUsuario == fichaProducao.Usuario.idUsuario)
@@ -48,14 +48,26 @@ namespace NossoQueijo.Repositorio.RepositoriosEF
             _contexto.Produtos.Update(produtoAtualizar);
 
             _contexto.SaveChanges();
+
+            return fichaProducao.idFichaProducao;
         }
 
         public void AtualizarPersonalizado(FichaProducao fichaProducao)
         {
             fichaProducao.Usuario = _contexto.Usuarios
-                .Where(x => x.idUsuario == fichaProducao.Usuario.idUsuario)
-                .FirstOrDefault();
+                            .Where(x => x.idUsuario == fichaProducao.Usuario.idUsuario)
+                            .First();
+            fichaProducao.Produto = _contexto.Produtos
+                .Where(x => x.idProduto == fichaProducao.Produto.idProduto)
+                .First();
+            fichaProducao.EstoquePorData.Produto = fichaProducao.Produto;
             _contexto.FichasProducao.Update(fichaProducao);
+
+            var produtoAtualizar = _contexto.Produtos
+                .First(x => x.idProduto == fichaProducao.Produto.idProduto);
+            produtoAtualizar.QntdEstoque += fichaProducao.QntdProduzida;
+            _contexto.Produtos.Update(produtoAtualizar);
+
             _contexto.SaveChanges();
         }
 

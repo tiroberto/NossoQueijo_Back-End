@@ -6,6 +6,7 @@ namespace NossoQueijo.Dominio.Entidades
     {
         public int idEstado { get; set; }
         public string Nome { get; set; }
+        public string UF { get; set; }
         public IEnumerable<Cidade> Cidades { get; set; }
     }
 }
