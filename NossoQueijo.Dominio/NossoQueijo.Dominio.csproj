@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AWSSDK.Amplify" Version="3.7.1.13" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\NossoQueijo.Comum\NossoQueijo.Comum.csproj" />
   </ItemGroup>
 
