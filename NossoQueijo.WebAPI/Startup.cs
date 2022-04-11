@@ -83,10 +83,10 @@ namespace NossoQueijo.WebAPI
                 options.AddPolicy(name: MyAllowSpecificOrigins,
                                   builder =>
                                   {
-                                      builder.WithOrigins("http://localhost:3000")
+                                      builder.WithOrigins("http://localhost:3000","https://master.d1t7i1cybstpti.amplifyapp.com", "https://*.nossoqueijo.com.br")
                                       .AllowAnyHeader()
                                       .AllowAnyMethod()
-                                      .AllowAnyHeader();
+                                      .AllowCredentials();
                                   });
             });
 

@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace NossoQueijo.WebAPI.Controllers
 {
+    [EnableCors]
     [Route("api/[controller]")]
     [ApiController]
     public class FichaProducaoController : ControllerBase
@@ -26,7 +27,6 @@ namespace NossoQueijo.WebAPI.Controllers
         public IEnumerable<FichaProducao> ListarTodos() => appFichaProducao.ListarTodos();
 
         [HttpGet("buscar-um")]
-        [EnableCors]
         public NotificationResult BuscarPorId(int id) => appFichaProducao.BuscarPorId(id);
 
         [HttpGet("listar-por-periodo")]

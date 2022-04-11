@@ -29,6 +29,7 @@ namespace NossoQueijo.Repositorio.RepositoriosEF
         public int AdicionarPersonalizado(Endereco endereco)
         {
             endereco.Cidade = _contexto.Cidades
+                .Include(x => x.Estado)
                 .Where(x => x.idCidade == endereco.Cidade.idCidade)
                 .FirstOrDefault();
             endereco.Usuario = _contexto.Usuarios

@@ -131,12 +131,14 @@ namespace NossoQueijo.Aplicacao
                 if (notificationResult.IsValid)
                 {
                     _fichaProducaoRepositorio.RemoverPersonalizado(id);
+                    notificationResult.Result = true;
                     notificationResult.Add("Removido com sucesso");
                 }
                 return notificationResult;
             }
             catch (Exception ex)
             {
+                notificationResult.Result = false;
                 return notificationResult.Add(new NotificationError(ex.Message));
             }
         }

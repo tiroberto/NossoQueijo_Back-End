@@ -1,0 +1,22 @@
+
+{
+    "region" : "sa-east-1",
+    "configuration" : "Debug",
+    "framework"     : "netcoreapp3.1",
+    "self-contained" : false,
+    "application"    : "NossoQueijoWebAPI",
+    "environment"    : "NossoQueijoWebAPI-beta",
+    "enable-xray"    : false,
+    "enhanced-health-type" : "basic",
+    "additional-options"   : "\"aws:autoscaling:launchconfiguration,SecurityGroups\"=\"sg-0050d5101a2064038\";\"aws:ec2:vpc,Subnets\"=\"subnet-030c568b214f77244\";\"aws:ec2:vpc,ELBSubnets\"=\"subnet-030c568b214f77244,subnet-078584e42e69a0451,subnet-078be464241511406\"",
+    "solution-stack"       : "64bit Amazon Linux 2 v2.3.0 running .NET Core",
+    "environment-type"     : "LoadBalanced",
+    "cname"                : "nossoqueijowebapi-beta",
+    "instance-type"        : "t3a.medium",
+    "key-pair"             : "",
+    "instance-profile"     : "aws-elasticbeanstalk-ec2-role",
+    "service-role"         : "aws-elasticbeanstalk-service-role",
+    "proxy-server"         : "nginx",
+    "loadbalancer-type"    : "application",
+    "health-check-url"     : "/"
+}
