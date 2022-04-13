@@ -112,7 +112,7 @@ namespace NossoQueijo.Aplicacao
 
             var token = Token.GenerateToken(usuario);
             usuario.Senha = "";
-            var pedidos = _pedidoRepositorio.ListarPorIdUsuario(usuario.idUsuario);            
+            var pedidos = _pedidoRepositorio.ListarPorIdUsuarioPaginado(usuario.idUsuario, 1);            
 
             return new { usuario = usuario, pedidos = pedidos, enderecos = usuario.Enderecos, token = token, message = "Login efetuado com sucesso.", logado = true};
         }

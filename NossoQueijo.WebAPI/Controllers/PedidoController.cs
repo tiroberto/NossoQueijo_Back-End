@@ -22,20 +22,22 @@ namespace NossoQueijo.WebAPI.Controllers
             appPedido = PedidoAplicacao;
         }
 
+        [HttpGet("listar-paginado")]
+        public IEnumerable<Pedido> ListarTodosPaginado(int pagina) => appPedido.ListarTodosPaginado(pagina);
         [HttpGet("listar")]
         public IEnumerable<Pedido> ListarTodos() => appPedido.ListarTodos();
 
         [HttpGet("listar-por-periodo")]
-        public NotificationResult ListarPorPeriodo(DateTime inicio, DateTime fim) => appPedido.ListarPorPeriodo(inicio, fim);
+        public NotificationResult ListarPorPeriodo(DateTime inicio, DateTime fim, int pagina) => appPedido.ListarPorPeriodoPaginado(inicio, fim, pagina);
 
         [HttpGet("listar-por-usuario")]
-        public NotificationResult ListarPorIdUsuario(int idUsuario) => appPedido.ListarPorIdUsuario(idUsuario);
+        public NotificationResult ListarPorIdUsuario(int idUsuario, int pagina) => appPedido.ListarPorIdUsuarioPaginado(idUsuario, pagina);
 
         [HttpGet("listar-por-status")]
-        public NotificationResult ListarPorIdStatus(int idStatus) => appPedido.ListarPorIdStatus(idStatus);
+        public NotificationResult ListarPorIdStatus(int idStatus, int pagina) => appPedido.ListarPorIdStatusPaginado(idStatus, pagina);
 
         [HttpGet("listar-por-formapagamento")]
-        public NotificationResult ListarPorIdFormaPagamento(int idFormaPagamento) => appPedido.ListarPorIdFormaPagamento(idFormaPagamento);
+        public NotificationResult ListarPorIdFormaPagamento(int idFormaPagamento, int pagina) => appPedido.ListarPorIdFormaPagamentoPaginado(idFormaPagamento, pagina);
 
         [HttpGet("buscar-um")]
         [EnableCors]

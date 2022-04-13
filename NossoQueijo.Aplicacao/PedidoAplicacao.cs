@@ -51,19 +51,24 @@ namespace NossoQueijo.Aplicacao
             }
         }
 
+        public dynamic ListarTodosPaginado(int pagina)
+        {
+            return _pedidoRepositorio.ListarTodosPaginado(pagina);
+        }
+
         public IEnumerable<Pedido> ListarTodos()
         {
             return _pedidoRepositorio.ListarTodos();
         }
 
-        public NotificationResult ListarPorIdUsuario(int idUsuario)
+        public NotificationResult ListarPorIdUsuarioPaginado(int idUsuario, int pagina)
         {
             var notificationResult = new NotificationResult();
             try
             {
                 if (notificationResult.IsValid)
                 {
-                    notificationResult.Result = _pedidoRepositorio.ListarPorIdUsuario(idUsuario);
+                    notificationResult.Result = _pedidoRepositorio.ListarPorIdUsuarioPaginado(idUsuario, pagina);
                     notificationResult.Add("Pedidos encontrados com sucesso!");
                 }
                 return notificationResult;
@@ -74,14 +79,14 @@ namespace NossoQueijo.Aplicacao
             }
         }
 
-        public NotificationResult ListarPorIdStatus(int idStatus)
+        public NotificationResult ListarPorIdStatusPaginado(int idStatus, int pagina)
         {
             var notificationResult = new NotificationResult();
             try
             {
                 if (notificationResult.IsValid)
                 {
-                    notificationResult.Result = _pedidoRepositorio.ListarPorIdStatus(idStatus);
+                    notificationResult.Result = _pedidoRepositorio.ListarPorIdStatusPaginado(idStatus, pagina);
                     notificationResult.Add("Pedidos encontrados com sucesso!");
                 }
                 return notificationResult;
@@ -92,14 +97,14 @@ namespace NossoQueijo.Aplicacao
             }
         }
 
-        public NotificationResult ListarPorIdFormaPagamento(int idFormaPagamento)
+        public NotificationResult ListarPorIdFormaPagamentoPaginado(int idFormaPagamento, int pagina)
         {
             var notificationResult = new NotificationResult();
             try
             {
                 if (notificationResult.IsValid)
                 {
-                    notificationResult.Result = _pedidoRepositorio.ListarPorIdFormaPagamento(idFormaPagamento);
+                    notificationResult.Result = _pedidoRepositorio.ListarPorIdFormaPagamentoPaginado(idFormaPagamento, pagina);
                     notificationResult.Add("Pedidos encontrados com sucesso!");
                 }
                 return notificationResult;
@@ -110,7 +115,7 @@ namespace NossoQueijo.Aplicacao
             }
         }
 
-        public NotificationResult ListarPorPeriodo(DateTime inicio, DateTime fim)
+        public NotificationResult ListarPorPeriodoPaginado(DateTime inicio, DateTime fim, int pagina)
         {
             var notificationResult = new NotificationResult();
 
@@ -124,7 +129,7 @@ namespace NossoQueijo.Aplicacao
                         && (inicio < fim)
                         && (inicio < DateTime.Now))
                     {
-                        notificationResult.Result = _pedidoRepositorio.ListarPorPeriodo(inicio, fim);
+                        notificationResult.Result = _pedidoRepositorio.ListarPorPeriodoPaginado(inicio, fim, pagina);
                         notificationResult.Add("Lista gerada com sucesso.");
                     }
 

@@ -30,9 +30,6 @@ namespace NossoQueijo.WebAPI.Controllers
         [HttpGet("listar-por-tipousuario")]
         public IEnumerable<Usuario> ListarPorIdTipoUsuario(int idTipoUsuario) => appUsuario.ListarPorIdTipoUsuario(idTipoUsuario);
 
-        //[HttpGet("verificar-login")]
-        //public NotificationResult VerificarLogin(string email, string senha) => appUsuario.VerificarLogin(email, senha);
-
         [HttpGet("buscar-um")]
         [EnableCors]
         public NotificationResult BuscarPorId(int id) => appUsuario.BuscarPorId(id);
@@ -49,6 +46,6 @@ namespace NossoQueijo.WebAPI.Controllers
         [Route("login")]
         [HttpPost]
         [AllowAnonymous]
-        public async Task<dynamic> Authenticate(string email, string senha) => appUsuario.VerificarLogin(email, senha);
+        public dynamic Authenticate(string email, string senha) => appUsuario.VerificarLogin(email, senha);
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Canducci.Pagination;
+using Microsoft.EntityFrameworkCore;
 using NossoQueijo.Dominio.Entidades;
 using NossoQueijo.Dominio.Interfaces.Repositorio;
 using System;
@@ -53,6 +54,33 @@ namespace NossoQueijo.Repositorio.RepositoriosEF
                 .FirstOrDefault();
         }
 
+        public dynamic ListarTodosPaginado(int pagina)
+        {
+            return _contexto.Pedidos
+                .Include(x => x.EnderecoEntrega)
+                .ThenInclude(x => x.Cidade)
+                .ThenInclude(x => x.Estado)
+                .Select(x => new Pedido
+                {
+                    idPedido = x.idPedido,
+                    ValorFrete = x.ValorFrete,
+                    Usuario = x.Usuario,
+                    FormaPagamento = x.FormaPagamento,
+                    Status = x.Status,
+                    PedidoProdutos = x.PedidoProdutos.Select(c => new PedidoProduto
+                    {
+                        idPedido = c.idPedido,
+                        idProduto = c.idProduto,
+                        Produto = c.Produto,
+                        Pedido = null,
+                        Quantidade = c.Quantidade
+                    })
+                })
+                .AsNoTracking()
+                .OrderBy(x => x.Data)
+                .ToPaginatedRest(pagina, 10);
+        }
+
         public IEnumerable<Pedido> ListarTodos()
         {
             return _contexto.Pedidos
@@ -75,10 +103,12 @@ namespace NossoQueijo.Repositorio.RepositoriosEF
                         Quantidade = c.Quantidade
                     })
                 })
+                .AsNoTracking()
+                .OrderBy(x => x.Data)
                 .ToList();
         }
 
-        public IEnumerable<Pedido> ListarPorPeriodo(DateTime inicio, DateTime fim)
+        public dynamic ListarPorPeriodoPaginado(DateTime inicio, DateTime fim, int pagina)
         {
 
             return _contexto.Pedidos
@@ -103,19 +133,14 @@ namespace NossoQueijo.Repositorio.RepositoriosEF
                         Quantidade = c.Quantidade
                     })
                 })
+                .AsNoTracking()
+                .OrderBy(x => x.Data)
                 .Where(x => (x.Data >= inicio) && (x.Data <= fim))
-                .ToList();
+                .ToPaginatedRest(pagina, 10);
         }
 
-        public IEnumerable<Pedido> ListarPorIdUsuario(int idUsuario)
+        public dynamic ListarPorIdUsuarioPaginado(int idUsuario, int pagina)
         {
-            //return _contexto.Pedidos
-            //    .Include(x => x.FormaPagamento)
-            //    .Include(x => x.Status)
-            //    .Include(x => x.PedidoProdutos)
-            //    .Where(x => x.Usuario.idUsuario == idUsuario)
-            //    .ToList();
-
             return _contexto.Pedidos
                 .Include(x => x.EnderecoEntrega)
                 .ThenInclude(x => x.Cidade)
@@ -138,11 +163,13 @@ namespace NossoQueijo.Repositorio.RepositoriosEF
                         Quantidade = c.Quantidade
                     })
                 })
+                .AsNoTracking()
+                .OrderBy(x => x.Data)
                 .Where(x => x.Usuario.idUsuario == idUsuario)
-                .ToList();
+                .ToPaginatedRest(pagina, 10);
         }
 
-        public IEnumerable<Pedido> ListarPorIdStatus(int idStatus)
+        public dynamic ListarPorIdStatusPaginado(int idStatus, int pagina)
         {
             return _contexto.Pedidos
                 .Include(x => x.EnderecoEntrega)
@@ -166,11 +193,13 @@ namespace NossoQueijo.Repositorio.RepositoriosEF
                         Quantidade = c.Quantidade
                     })
                 })
+                .AsNoTracking()
+                .OrderBy(x => x.Data)
                 .Where(x => x.Status.idStatus == idStatus)
-                .ToList();
+                .ToPaginatedRest(pagina, 10);
         }
 
-        public IEnumerable<Pedido> ListarPorIdFormaPagamento(int idFormaPagamento)
+        public dynamic ListarPorIdFormaPagamentoPaginado(int idFormaPagamento, int pagina)
         {
             return _contexto.Pedidos
                 .Include(x => x.EnderecoEntrega)
@@ -194,8 +223,10 @@ namespace NossoQueijo.Repositorio.RepositoriosEF
                         Quantidade = c.Quantidade
                     })
                 })
+                .AsNoTracking()
+                .OrderBy(x => x.Data)
                 .Where(x => x.FormaPagamento.idFormaPagamento == idFormaPagamento)
-                .ToList();
+                .ToPaginatedRest(pagina, 10);
         }
 
         public Pedido BuscarPorId(int id)
@@ -223,13 +254,12 @@ namespace NossoQueijo.Repositorio.RepositoriosEF
                     })
                 })
                 .First(x => x.idPedido == id);
-                
         }
 
         public void RemoverPersonalizado(int id)
         {
             Pedido pedidoRemover = _contexto.Pedidos.First(x => x.idPedido == id);
-            IEnumerable<PedidoProduto> pedidoProdutosRemover = _contexto.PedidoProdutos.Where(x => x.Pedido.idPedido == id).ToList();
+            IEnumerable<PedidoProduto> pedidoProdutosRemover = _contexto.PedidoProdutos.Where(x => x.Pedido.idPedido == id);
             _contexto.PedidoProdutos.RemoveRange(pedidoProdutosRemover);
             _contexto.Pedidos.Remove(pedidoRemover);
             _contexto.SaveChanges();

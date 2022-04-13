@@ -11,6 +11,7 @@ namespace NossoQueijo.Dominio.Interfaces.Aplicacao
     {
         public NotificationResult Salvar(Produto entidade);
         public IEnumerable<Produto> ListarTodos();
+        public dynamic ListarTodosPaginado(int pagina);
         public NotificationResult BuscarPorId(int id);
         public NotificationResult Remover(int id);
     }

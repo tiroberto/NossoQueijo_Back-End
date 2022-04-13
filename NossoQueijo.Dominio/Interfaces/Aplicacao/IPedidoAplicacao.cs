@@ -10,10 +10,11 @@ namespace NossoQueijo.Dominio.Interfaces.Aplicacao
     {
         public NotificationResult Salvar(Pedido entidade);
         public IEnumerable<Pedido> ListarTodos();
-        public NotificationResult ListarPorPeriodo(DateTime inicio, DateTime fim);
-        public NotificationResult ListarPorIdUsuario(int idUsuario);
-        public NotificationResult ListarPorIdStatus(int idStatus);
-        public NotificationResult ListarPorIdFormaPagamento(int idFormaPagamento);
+        public dynamic ListarTodosPaginado(int pagina);
+        public NotificationResult ListarPorPeriodoPaginado(DateTime inicio, DateTime fim, int pagina);
+        public NotificationResult ListarPorIdUsuarioPaginado(int idUsuario, int pagina);
+        public NotificationResult ListarPorIdStatusPaginado(int idStatus, int pagina);
+        public NotificationResult ListarPorIdFormaPagamentoPaginado(int idFormaPagamento, int pagina);
         public NotificationResult BuscarPorId(int id);
         public NotificationResult Remover(int id);
     }

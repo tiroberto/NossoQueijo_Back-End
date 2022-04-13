@@ -30,10 +30,10 @@ namespace NossoQueijo.WebAPI.Controllers
         public NotificationResult BuscarPorId(int id) => appFichaProducao.BuscarPorId(id);
 
         [HttpGet("listar-por-periodo")]
-        public NotificationResult ListarPorPeriodo(DateTime inicio, DateTime fim) => appFichaProducao.ListarPorPeriodo(inicio, fim);
+        public NotificationResult ListarPorPeriodo(DateTime inicio, DateTime fim, int pagina) => appFichaProducao.ListarPorPeriodoPaginado(inicio, fim, pagina);
 
         [HttpGet("listar-por-usuario")]
-        public NotificationResult ListarPorIdUsuario(int idUsuario) => appFichaProducao.ListarPorIdUsuario(idUsuario);
+        public NotificationResult ListarPorIdUsuarioPaginado(int idUsuario, int pagina) => appFichaProducao.ListarPorIdUsuarioPaginado(idUsuario, pagina);
 
         [HttpPost("salvar")]
         public NotificationResult Salvar(FichaProducao fichaProducao) => appFichaProducao.Salvar(fichaProducao);

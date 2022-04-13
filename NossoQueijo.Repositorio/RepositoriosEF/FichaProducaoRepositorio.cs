@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Canducci.Pagination;
+using Microsoft.EntityFrameworkCore;
 using NossoQueijo.Comum.NotificationPattern;
 using NossoQueijo.Dominio.Entidades;
 using NossoQueijo.Dominio.Interfaces.Repositorio;
@@ -71,32 +72,26 @@ namespace NossoQueijo.Repositorio.RepositoriosEF
             _contexto.SaveChanges();
         }
 
-        public IEnumerable<FichaProducao> ListarPorIdUsuario(int idUsuario)
+        public dynamic ListarPorIdUsuarioPaginado(int idUsuario, int pagina)
         {
             return _contexto.FichasProducao
                 .Include(x => x.Usuario)
-                .ThenInclude(y => y.Enderecos)
-                .ThenInclude(y => y.Cidade)
-                .ThenInclude(y => y.Estado)
-                .Include(x => x.Usuario)
-                .ThenInclude(y => y.TipoUsuario)
                 .Include(x => x.Produto)
+                .AsNoTracking()
+                .OrderBy(x => x.Data)
                 .Where(x => x.Usuario.idUsuario == idUsuario)
-                .ToList();
+                .ToPaginatedRest(pagina, 10);
         }
 
-        public IEnumerable<FichaProducao> ListarPorPeriodo(DateTime inicio, DateTime fim)
+        public dynamic ListarPorPeriodoPaginado(DateTime inicio, DateTime fim, int pagina)
         {
             return _contexto.FichasProducao
                 .Include(x => x.Usuario)
-                .ThenInclude(y => y.Enderecos)
-                .ThenInclude(y => y.Cidade)
-                .ThenInclude(y => y.Estado)
-                .Include(x => x.Usuario)
-                .ThenInclude(y => y.TipoUsuario)
                 .Include(x => x.Produto)
+                .AsNoTracking()
+                .OrderBy(x => x.Data)
                 .Where(x => (x.Data >= inicio) && (x.Data <= fim))
-                .ToList();
+                .ToPaginatedRest(pagina, 10);
         }
          
         public FichaProducao BuscarPorId(int id)
@@ -106,8 +101,6 @@ namespace NossoQueijo.Repositorio.RepositoriosEF
                 .ThenInclude(y => y.Enderecos)
                 .ThenInclude(y => y.Cidade)
                 .ThenInclude(y => y.Estado)
-                .Include(x => x.Usuario)
-                .ThenInclude(y => y.TipoUsuario)
                 .Include(x => x.Produto)
                 .First(x => x.idFichaProducao == id);
         }

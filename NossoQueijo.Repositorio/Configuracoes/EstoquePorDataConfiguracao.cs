@@ -15,9 +15,6 @@ namespace NossoQueijo.Repositorio.Configuracoes
             builder.HasKey("idFichaProducao");
             builder.Property(i => i.Quantidade)
                 .HasColumnName("Quantidade");
-            //builder.HasOne(i => i.FichaProducao)
-            //    .WithMany(i => i.EstoquesPorData)
-            //    .HasForeignKey("idFichaProducao");
             builder.HasOne(i => i.Produto)
                 .WithMany(j => j.EstoquePorDatas)
                 .HasForeignKey("idProduto");

@@ -60,14 +60,15 @@ namespace NossoQueijo.Aplicacao
             return _fichaProducaoRepositorio.ListarTodos();
         }
 
-        public NotificationResult ListarPorIdUsuario(int idUsuario)
+        public NotificationResult ListarPorIdUsuarioPaginado(int idUsuario, int pagina)
         {
             var notificationResult = new NotificationResult();
             try
             {
                 if (notificationResult.IsValid)
                 {
-                    notificationResult.Result = _fichaProducaoRepositorio.ListarPorIdUsuario(idUsuario);
+                    
+                    notificationResult.Result = _fichaProducaoRepositorio.ListarPorIdUsuarioPaginado(idUsuario, pagina);
                     notificationResult.Add("Encontrado com sucesso!");
                 }
                 return notificationResult;
@@ -78,7 +79,7 @@ namespace NossoQueijo.Aplicacao
             }
         }
 
-        public NotificationResult ListarPorPeriodo(DateTime inicio, DateTime fim)
+        public NotificationResult ListarPorPeriodoPaginado(DateTime inicio, DateTime fim, int pagina)
         {
             var notificationResult = new NotificationResult();
 
@@ -92,7 +93,7 @@ namespace NossoQueijo.Aplicacao
                         && (inicio < fim)
                         && (inicio < DateTime.Now))
                     {
-                        notificationResult.Result = _fichaProducaoRepositorio.ListarPorPeriodo(inicio, fim);
+                        notificationResult.Result = _fichaProducaoRepositorio.ListarPorPeriodoPaginado(inicio, fim, pagina);
                         notificationResult.Add("Lista gerada com sucesso.");
                     }
 

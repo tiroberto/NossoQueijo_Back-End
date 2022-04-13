@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="AWSSDK.Amplify" Version="3.7.1.13" />
+    <PackageReference Include="Canducci.Pagination" Version="2.1.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.10" />
   </ItemGroup>

@@ -10,11 +10,12 @@ namespace NossoQueijo.Dominio.Interfaces.Repositorio
         public int AdicionarPersonalizado(Pedido pedido);
         public void AtualizarPersonalizado(Pedido pedido);
         public Pedido UltimoAdicionado();
-        public IEnumerable<Pedido> ListarPorPeriodo(DateTime inicio, DateTime fim);
+        public dynamic ListarPorPeriodoPaginado(DateTime inicio, DateTime fim, int pagina);
         public IEnumerable<Pedido> ListarTodos();
-        public IEnumerable<Pedido> ListarPorIdUsuario(int idUsuario);
-        public IEnumerable<Pedido> ListarPorIdStatus(int idStatus);
-        public IEnumerable<Pedido> ListarPorIdFormaPagamento(int idFormaPagamento);
+        public dynamic ListarTodosPaginado(int pagina);
+        public dynamic ListarPorIdUsuarioPaginado(int idUsuario, int pagina);
+        public dynamic ListarPorIdStatusPaginado(int idStatus, int pagina);
+        public dynamic ListarPorIdFormaPagamentoPaginado(int idFormaPagamento, int pagina);
         public Pedido BuscarPorId(int id);
         public void RemoverPersonalizado(int id);
     }

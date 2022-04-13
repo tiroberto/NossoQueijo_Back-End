@@ -24,6 +24,9 @@ namespace NossoQueijo.WebAPI.Controllers
         [HttpGet("listar")]
         public IEnumerable<Produto> ListarTodos() => appProduto.ListarTodos();
 
+        [HttpGet("listar-paginado")]
+        public dynamic ListarTodos(int pagina) => appProduto.ListarTodosPaginado(pagina);
+
         [HttpGet("buscar-um")]
         public NotificationResult BuscarPorId(int id) => appProduto.BuscarPorId(id);
 

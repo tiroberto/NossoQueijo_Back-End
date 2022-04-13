@@ -9,6 +9,7 @@ namespace NossoQueijo.Dominio.Interfaces.Repositorio
     public interface IProdutoRepositorio : IRepositorioBase<Produto>
     {
         public IEnumerable<Produto> ListarTodos();
+        public dynamic ListarTodosPaginado(int pagina);
         public Produto BuscarPorId(int id);
         public void RemoverPersonalizado(int id);
     }

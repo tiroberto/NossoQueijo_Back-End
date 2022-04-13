@@ -63,6 +63,11 @@ namespace NossoQueijo.Aplicacao
             return _produtoRepositorio.ListarTodos();
         }
 
+        public dynamic ListarTodosPaginado(int pagina)
+        {
+            return _produtoRepositorio.ListarTodosPaginado(pagina);
+        }
+
         public NotificationResult BuscarPorId(int id)
         {
             var notificationResult = new NotificationResult();
